@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BUSCO — The Predator. Built for Africa.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════════
+   BUSCO 2026 · DARK DASHBOARD / MOTORSPORT EDITION
+   
+   All 5 colours with distinct purposeful roles:
+   ─────────────────────────────────────────────────
+   --red    #E02020   Primary action / brand mark
+   --blue   #1D74E8   OEM trust / technical data
+   --green  #1DB560   Approvals / certifications
+   --amber  #D4900A   Heritage / est. callouts  
+   --chalk  #EDE8E0   Body text on dark
+   ─────────────────────────────────────────────────
+   Base:    #0D0D0F   Page ground
+   S1:      #131316   Card surfaces
+   S2:      #19191D   Raised panels
+   S3:      #202025   Elevated interactive
+═══════════════════════════════════════════════════ */
+
+:root {
+  --red:    #E02020;
+  --red2:   #A81616;
+  --red-g:  rgba(224,32,32,.12);
+  --blue:   #1D74E8;
+  --blue-g: rgba(29,116,232,.12);
+  --green:  #1DB560;
+  --grn-g:  rgba(29,181,96,.12);
+  --amber:  #D4900A;
+  --amb-g:  rgba(212,144,10,.12);
+  --chalk:  #EDE8E0;
+  --chalk2: #A8A399;
+  --grey:   #6B7280;
+  --grey2:  #9CA3AF;
+  --grey3:  #374151;
+  --grey4:  #1F2937;
+  --bg:     #0D0D0F;
+  --s1:     #131316;
+  --s2:     #19191D;
+  --s3:     #202025;
+  --s4:     #28282E;
+  --ln:     rgba(255,255,255,.055);
+  --ln2:    rgba(255,255,255,.1);
+  --ln3:    rgba(255,255,255,.18);
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  color: var(--chalk);
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+a { text-decoration:none; color:inherit; }
+button { border:none; background:none; font-family:inherit; cursor:none; }
+img { display:block; }
+::selection { background:var(--red); color:#fff; }
+::-webkit-scrollbar { width:2px; }
+::-webkit-scrollbar-thumb { background:var(--red); }
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 1;
+}
+
+/* ── CURSOR ── */
+#cur { position:fixed; width:7px; height:7px; border-radius:50%; background:var(--red); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .15s,height .15s; }
+#cur-r { position:fixed; width:28px; height:28px; border-radius:50%; border:1px solid rgba(224,32,32,.4); pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .14s,height .14s; }
+body.hov #cur { width:11px; height:11px; }
+body.hov #cur-r { width:46px; height:46px; border-color:rgba(224,32,32,.2); }
+
+/* ════════════════════════════════════════
+   LAYOUT: Fixed Left Sidebar + Main
+════════════════════════════════════════ */
+#sidebar {
+  position:fixed; left:0; top:0; bottom:0;
+  width:220px; z-index:400;
+  background:var(--s1);
+  border-right:1px solid var(--ln);
+  display:flex; flex-direction:column;
+  padding:0;
+}
+
+/* Sidebar logo area */
+.sb-logo {
+  padding:28px 24px 24px;
+  border-bottom:1px solid var(--ln);
+  flex-shrink:0;
+}
+.sb-logo img { height:32px; filter:brightness(0) invert(1); }
+.sb-tagline {
+  font-family:'Orbitron',sans-serif;
+  font-size:.46rem; letter-spacing:.35em; text-transform:uppercase;
+  color:var(--grey); margin-top:8px;
+}
+
+/* Sidebar nav */
+.sb-nav {
+  flex:1; padding:24px 0; overflow-y:auto;
+  display:flex; flex-direction:column; gap:2px;
+}
+.sb-item {
+  display:flex; align-items:center; gap:12px;
+  padding:11px 24px; position:relative;
+  font-family:'Exo 2',sans-serif;
+  font-size:.75rem; font-weight:400; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--grey);
+  transition:color .2s, background .2s;
+  border-left:2px solid transparent;
+}
+.sb-item:hover, .sb-item.active { color:rgba(255,255,255,.8); background:rgba(255,255,255,.03); }
+.sb-item.active { border-left-color:var(--red); color:#fff; }
+.sb-num {
+  font-family:'Orbitron',sans-serif;
+  font-size:.52rem; letter-spacing:.15em;
+  color:var(--grey3); min-width:20px;
+}
+.sb-item.active .sb-num { color:var(--red); }
+
+/* Sidebar status chips */
+.sb-status {
+  padding:20px 24px;
+  border-top:1px solid var(--ln);
+  flex-shrink:0;
+  display:flex; flex-direction:column; gap:8px;
+}
+.sb-chip {
+  display:flex; align-items:center; gap:8px;
+  font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
+  font-family:'Orbitron',sans-serif;
+}
+.sb-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.sb-dot.g { background:var(--green); box-shadow:0 0 6px rgba(29,181,96,.6); }
+.sb-dot.b { background:var(--blue); box-shadow:0 0 6px rgba(29,116,232,.6); }
+.sb-dot.a { background:var(--amber); box-shadow:0 0 6px rgba(212,144,10,.6); }
+.sb-chip.g { color:rgba(29,181,96,.7); }
+.sb-chip.b { color:rgba(29,116,232,.7); }
+.sb-chip.a { color:rgba(212,144,10,.7); }
+
+.sb-phone {
+  margin-top:8px; padding-top:14px; border-top:1px solid var(--ln);
+  font-family:'Orbitron',sans-serif;
+  font-size:.56rem; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(255,255,255,.25);
+}
+
+/* Main content */
+#main {
+  margin-left:220px;
+  position:relative; z-index:1;
+}
+
+/* ════════════════════════════════════════
+   HERO — FULL VIEWPORT IMMERSIVE
+════════════════════════════════════════ */
+.hero {
+  position:relative;
+  height:100vh; min-height:680px;
+  overflow:hidden;
+  display:flex; flex-direction:column;
+}
+
+/* Full-bleed bus image */
+.hero-bg {
+  position:absolute; inset:-18%;
+  background:url('https://busco.co.za/images/9.jpg') center/cover no-repeat;
+  will-change:transform; z-index:0;
+}
+
+/* Dark vignette system */
+.hero-vignette {
+  position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(to right, rgba(13,13,15,.97) 0%, rgba(13,13,15,.85) 32%, rgba(13,13,15,.4) 62%, rgba(13,13,15,.1) 100%),
+    linear-gradient(to top, rgba(13,13,15,1) 0%, rgba(13,13,15,.6) 18%, transparent 42%),
+    linear-gradient(to bottom, rgba(13,13,15,.8) 0%, transparent 16%);
+}
+
+/* Chrome diagonal accent line */
+.hero-diag {
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  overflow:hidden;
+}
+.hero-diag::before {
+  content:'';
+  position:absolute;
+  top:0; left:38%; bottom:0; width:1px;
+  background:linear-gradient(to bottom, transparent 0%, rgba(224,32,32,.3) 25%, rgba(224,32,32,.15) 75%, transparent 100%);
+  transform:skewX(-8deg); transform-origin:top;
+}
+
+/* Dot grid overlay — technical look */
+.hero-dots {
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size:32px 32px;
+  mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.4) 35%, rgba(0,0,0,.15) 65%, transparent 100%);
+}
+
+/* Animated scan line */
+.hero-scan {
+  position:absolute; left:0; right:0; height:1px; z-index:3;
+  background:linear-gradient(to right, transparent 0%, var(--red) 30%, rgba(224,32,32,.6) 70%, transparent 100%);
+  opacity:0; animation:scan 6s 1.5s ease-in-out infinite;
+}
+@keyframes scan {
+  0%   { top:0; opacity:0; }
+  5%   { opacity:.3; }
+  95%  { opacity:.3; }
+  100% { top:100%; opacity:0; }
+}
+
+/* Content */
+.hero-body {
+  position:relative; z-index:4;
+  flex:1; display:flex; flex-direction:column;
+  justify-content:flex-end;
+  padding:0 56px 56px;
+  max-width:680px;
+}
+
+/* EST badge */
+.hero-est {
+  position:absolute; top:24px; right:48px; z-index:4;
+  text-align:right;
+  opacity:0; animation:fu .5s .1s both;
+}
+.est-label {
+  font-family:'Orbitron',sans-serif;
+  font-size:.5rem; letter-spacing:.55em; text-transform:uppercase;
+  color:var(--amber); opacity:.8;
+}
+.est-year {
+  font-family:'Orbitron',sans-serif;
+  font-size:1.8rem; font-weight:700;
+  color:rgba(212,144,10,.4); line-height:1;
+  letter-spacing:.08em;
+}
+
+/* OEM badge stack right */
+.hero-oem {
+  position:absolute; top:50%; right:48px;
+  transform:translateY(-50%); z-index:4;
+  display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+  opacity:0; animation:fu .5s .6s both;
+}
+.hero-oem-label {
+  font-family:'Orbitron',sans-serif;
+  font-size:.45rem; letter-spacing:.5em; text-transform:uppercase;
+  color:rgba(29,116,232,.5); margin-bottom:4px;
+}
+.oem-pill {
+  font-family:'Exo 2',sans-serif;
+  font-size:.68rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  padding:4px 12px;
+  border:1px solid rgba(29,116,232,.25);
+  background:rgba(29,116,232,.07);
+  color:rgba(29,116,232,.7);
+  border-radius:1px;
+  transition:border-color .2s, color .2s;
+}
+.oem-pill:hover { border-color:rgba(29,116,232,.6); color:rgba(29,116,232,1); }
+
+/* Kicker */
+.hero-kicker {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:20px;
+  opacity:0; animation:fu .55s .18s both;
+}
+.k-line { width:44px; height:1px; background:var(--red); }
+.k-txt {
+  font-family:'Orbitron',sans-serif;
+  font-size:.58rem; letter-spacing:.55em; text-transform:uppercase;
+  color:var(--red);
+}
+
+/* Main title */
+.hero-h1 {
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(5rem,11vw,9.5rem);
+  font-weight:900; line-height:.88;
+  letter-spacing:-.02em; color:#fff;
+  opacity:0; animation:fu .65s .26s both;
+}
+.hero-h1 em {
+  display:block; font-style:normal;
+  font-size:clamp(2.2rem,4.5vw,4rem);
+  font-weight:400; letter-spacing:.06em;
+  color:var(--red); margin-top:8px;
+}
+
+.hero-desc {
+  font-size:.92rem; line-height:1.78;
+  color:rgba(237,232,224,.45);
+  max-width:420px; margin:22px 0 34px;
+  opacity:0; animation:fu .6s .36s both;
+}
+
+.hero-ctas {
+  display:flex; gap:12px; flex-wrap:wrap;
+  opacity:0; animation:fu .55s .44s both;
+}
+.btn-primary {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:#fff; background:var(--red);
+  padding:13px 28px; border-radius:1px;
+  transition:background .2s, box-shadow .2s, transform .15s;
+  box-shadow:0 0 20px rgba(224,32,32,.2);
+}
+.btn-primary:hover { background:var(--red2); transform:translateY(-2px); box-shadow:0 4px 24px rgba(224,32,32,.35); }
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.15);
+  padding:12px 24px; border-radius:1px;
+  transition:border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color:rgba(255,255,255,.45); color:#fff; }
+
+/* Bottom stats strip */
+.hero-strip {
+  position:relative; z-index:4;
+  display:flex;
+  border-top:1px solid var(--ln);
+  opacity:0; animation:fu .5s .55s both;
+}
+.hs { flex:1; padding:20px 28px; border-right:1px solid var(--ln); position:relative; overflow:hidden; transition:background .25s; }
+.hs:last-child { border-right:none; }
+.hs:hover { background:rgba(255,255,255,.025); }
+.hs::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:var(--red); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+.hs:hover::after { transform:scaleX(1); }
+.hs-n { font-family:'Orbitron',sans-serif; font-size:2rem; font-weight:800; color:var(--red); line-height:1; }
+.hs-l { font-family:'Exo 2',sans-serif; font-size:.6rem; font-weight:400; letter-spacing:.35em; text-transform:uppercase; color:var(--grey); margin-top:4px; }
+
+@keyframes fu { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* ════════════════════════════════════════
+   MARQUEE
+════════════════════════════════════════ */
+.mq { overflow:hidden; padding:11px 0; background:var(--s1); border-top:1px solid var(--ln); }
+.mq-t { display:inline-flex; white-space:nowrap; animation:mqs 30s linear infinite; }
+.mi { font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; padding:0 24px; }
+.mi.r { color:rgba(224,32,32,.6); }
+.mi.b { color:rgba(29,116,232,.6); }
+.mi.g { color:rgba(29,181,96,.6); }
+.mi.a { color:rgba(212,144,10,.6); }
+.mi.sep { color:rgba(255,255,255,.1); }
+@keyframes mqs { to { transform:translateX(-50%); } }
+
+/* ════════════════════════════════════════
+   SECTION SHARED
+════════════════════════════════════════ */
+.sec { padding:96px 56px; border-top:1px solid var(--ln); position:relative; }
+.sec-dark { background:var(--bg); }
+.sec-mid  { background:var(--s1); }
+.sec-lift { background:var(--s2); }
+
+/* Section label */
+.sec-tag {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:44px;
+}
+.st-num {
+  font-family:'Orbitron',sans-serif;
+  font-size:.55rem; letter-spacing:.3em;
+  color:var(--red); opacity:.7;
+}
+.st-line { width:36px; height:1px; background:var(--grey3); }
+.st-label {
+  font-family:'Orbitron',sans-serif;
+  font-size:.58rem; letter-spacing:.45em; text-transform:uppercase;
+  color:var(--grey2);
+}
+
+.sh2 {
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(2.2rem,4.5vw,4.2rem);
+  font-weight:800; line-height:.95;
+  letter-spacing:-.01em; color:#fff;
+}
+.sh2 .r { color:var(--red); }
+.sh2 .b { color:var(--blue); }
+.sh2 .g { color:var(--green); }
+.sh2 .a { color:var(--amber); }
+
+/* Reveal */
+.rv { opacity:0; transform:translateY(24px); transition:opacity .6s,transform .6s; }
+.rv.in { opacity:1; transform:none; }
+.rv.d1{transition-delay:.07s} .rv.d2{transition-delay:.14s}
+.rv.d3{transition-delay:.21s} .rv.d4{transition-delay:.28s}
+
+/* ════════════════════════════════════════
+   ABOUT — staggered stat cards + text
+════════════════════════════════════════ */
+.about-layout {
+  display:grid; grid-template-columns:1fr 400px;
+  gap:72px; margin-top:52px;
+}
+.about-intro { font-size:.95rem; line-height:1.82; color:rgba(237,232,224,.5); margin:20px 0 32px; max-width:520px; }
+.about-intro strong { color:var(--chalk); font-weight:500; }
+
+/* Stat grid */
+.stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:32px; }
+.scard {
+  padding:28px 24px; background:var(--s1); border:1px solid var(--ln);
+  position:relative; overflow:hidden; transition:background .25s;
+}
+.scard:hover { background:var(--s2); }
+.scard-accent { position:absolute; top:0; left:0; right:0; height:2px; }
+.scard-n { font-family:'Orbitron',sans-serif; font-size:3rem; font-weight:800; line-height:1; }
+.scard-l { font-family:'Exo 2',sans-serif; font-size:.65rem; font-weight:400; letter-spacing:.35em; text-transform:uppercase; color:var(--grey2); margin-top:6px; }
+.scard-wm { position:absolute; bottom:-12px; right:-4px; font-family:'Orbitron',sans-serif; font-size:5.5rem; font-weight:900; color:rgba(255,255,255,.02); line-height:1; pointer-events:none; }
+
+/* Right panel — cert stack */
+.cert-panel { display:flex; flex-direction:column; gap:2px; }
+.cert-card {
+  padding:26px 24px; background:var(--s2); border:1px solid var(--ln);
+  display:flex; align-items:flex-start; gap:16px;
+  transition:background .25s, border-color .25s;
+}
+.cert-card:hover { background:var(--s3); border-color:var(--ln2); }
+.cc-icon {
+  width:38px; height:38px; flex-shrink:0; border-radius:2px;
+  display:flex; align-items:center; justify-content:center; font-size:.9rem;
+}
+.cc-h { font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+.cc-b { font-size:.82rem; line-height:1.65; color:rgba(237,232,224,.45); }
+
+/* OEM list */
+.oem-list { display:flex; flex-wrap:wrap; gap:6px; margin-top:28px; }
+.oem-tag {
+  font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:.18em; text-transform:uppercase;
+  padding:5px 12px; border-radius:1px;
+  border:1px solid rgba(29,116,232,.25); background:rgba(29,116,232,.07);
+  color:rgba(29,116,232,.75);
+  transition:border-color .2s, background .2s, color .2s;
+}
+.oem-tag:hover { border-color:rgba(29,116,232,.6); background:rgba(29,116,232,.14); color:var(--blue); }
+
+/* ════════════════════════════════════════
+   RANGE — horizontal scroll cards
+════════════════════════════════════════ */
+.range-controls {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom:32px;
+}
+.filter-wrap { display:flex; gap:2px; }
+.ftab {
+  font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
+  padding:9px 18px; border:1px solid var(--grey3); color:var(--grey);
+  transition:background .2s, color .2s, border-color .2s;
+}
+.ftab:first-child { border-radius:1px 0 0 1px; }
+.ftab:last-child  { border-radius:0 1px 1px 0; }
+.ftab.on { background:var(--red); color:#fff; border-color:var(--red); box-shadow:0 0 16px rgba(224,32,32,.25); }
+.ftab:not(.on):hover { background:var(--s2); color:rgba(255,255,255,.6); border-color:var(--ln2); }
+
+.range-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+.range-grid .wide { grid-column:span 2; }
+
+.rcard {
+  position:relative; overflow:hidden; aspect-ratio:4/3;
+  background:var(--s2); cursor:none;
+}
+.rcard.wide { aspect-ratio:2/1; }
+.rcard img { width:100%; height:100%; object-fit:cover; filter:brightness(.6) saturate(.65); transition:transform .55s,filter .55s; }
+.rcard:hover img { transform:scale(1.07); filter:brightness(.85) saturate(1); }
+.rcard-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(13,13,15,.95) 15%,transparent 55%); display:flex; flex-direction:column; justify-content:flex-end; padding:18px; }
+.rcard-type { font-family:'Orbitron',sans-serif; font-size:.52rem; letter-spacing:.4em; text-transform:uppercase; color:var(--red); margin-bottom:4px; }
+.rcard-name { font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:700; color:#fff; letter-spacing:.04em; }
+.rcard-arr { position:absolute; top:12px; right:12px; width:28px; height:28px; background:var(--red); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:.75rem; opacity:0; transform:scale(.4); transition:opacity .25s,transform .25s; }
+.rcard:hover .rcard-arr { opacity:1; transform:scale(1); }
+
+/* ════════════════════════════════════════
+   PREDATOR SPOTLIGHT — alternating layout
+════════════════════════════════════════ */
+.spotlight {
+  display:grid; grid-template-columns:55% 1fr;
+  min-height:560px; border-top:1px solid var(--ln);
+}
+.sp-img { position:relative; overflow:hidden; }
+.sp-img img { width:100%; height:100%; object-fit:cover; filter:brightness(.7) saturate(.75); transition:filter .5s,transform .5s; }
+.sp-img:hover img { filter:brightness(.88) saturate(1); transform:scale(1.02); }
+.sp-img::before {
+  content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to right,transparent 65%,var(--s2) 100%),
+             linear-gradient(135deg,rgba(224,32,32,.08) 0%,transparent 50%);
+}
+/* Diagonal chrome line on image */
+.sp-img::after {
+  content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:linear-gradient(135deg,transparent 48%,rgba(224,32,32,.18) 50%,transparent 52%);
+}
+.sp-content {
+  background:var(--s2); padding:64px 52px;
+  display:flex; flex-direction:column; justify-content:center;
+  border-left:1px solid var(--ln);
+}
+.sp-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Orbitron',sans-serif; font-size:.58rem; font-weight:700;
+  letter-spacing:.35em; text-transform:uppercase;
+  color:#fff; background:var(--red);
+  padding:6px 14px; align-self:flex-start; margin-bottom:24px;
+  box-shadow:0 0 16px rgba(224,32,32,.25);
+}
+.sp-h2 { margin-bottom:18px; }
+.sp-body { font-size:.9rem; line-height:1.8; color:rgba(237,232,224,.45); max-width:400px; margin-bottom:32px; }
+
+/* Spec data grid */
+.spec-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--ln); border:1px solid var(--ln); margin-bottom:32px; }
+.sc { background:var(--s3); padding:18px 16px; transition:background .2s; }
+.sc:hover { background:var(--s4); }
+.sc-val { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:800; color:var(--red); line-height:1; }
+.sc-key { font-family:'Exo 2',sans-serif; font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:var(--grey); margin-top:4px; }
+
+/* ════════════════════════════════════════
+   WHY BUSCO — 2-col feature list
+════════════════════════════════════════ */
+.why-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:48px; }
+.wc {
+  padding:34px 28px; background:var(--s1); border:1px solid var(--ln);
+  position:relative; overflow:hidden; transition:background .25s, border-color .25s;
+}
+.wc:hover { background:var(--s2); border-color:var(--ln2); }
+.wc-bar { position:absolute; top:0; left:0; right:0; height:1px; }
+.wc-bar.r { background:var(--red); }
+.wc-bar.b { background:var(--blue); }
+.wc-bar.g { background:var(--green); }
+.wc-bar.a { background:var(--amber); }
+.wc-num { position:absolute; top:12px; right:16px; font-family:'Orbitron',sans-serif; font-size:4rem; font-weight:900; color:rgba(255,255,255,.025); line-height:1; }
+.wc-icon { width:32px; height:32px; border-radius:1px; display:flex; align-items:center; justify-content:center; font-size:.85rem; margin-bottom:18px; }
+.wc-icon.r { background:var(--red-g); color:var(--red); }
+.wc-icon.b { background:var(--blue-g); color:var(--blue); }
+.wc-icon.g { background:var(--grn-g); color:var(--green); }
+.wc-icon.a { background:var(--amb-g); color:var(--amber); }
+.wc-h { font-family:'Orbitron',sans-serif; font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#fff; margin-bottom:10px; }
+.wc-b { font-size:.86rem; line-height:1.74; color:rgba(237,232,224,.45); }
+
+/* ════════════════════════════════════════
+   GALLERY — diagonal strip layout
+════════════════════════════════════════ */
+.gallery { padding:72px 0; overflow:hidden; background:var(--s1); border-top:1px solid var(--ln); }
+.gallery-header { padding:0 56px 36px; }
+.gstrip { overflow:hidden; margin-bottom:3px; }
+.gt { display:inline-flex; gap:3px; }
+.gt.fwd { animation:gf 34s linear infinite; }
+.gt.rev { animation:gr 34s linear infinite; }
+.gt:hover { animation-play-state:paused; }
+@keyframes gf { to { transform:translateX(-50%); } }
+@keyframes gr { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+.gi { width:280px; height:172px; flex-shrink:0; overflow:hidden; position:relative; }
+.gi img { width:100%; height:100%; object-fit:cover; filter:brightness(.55) saturate(.6); transition:filter .4s,transform .4s; }
+.gi:hover img { filter:brightness(.8) saturate(1); transform:scale(1.05); }
+
+/* ════════════════════════════════════════
+   CONFIGURATOR
+════════════════════════════════════════ */
+.cfg-layout { display:grid; grid-template-columns:1fr 440px; gap:72px; align-items:start; }
+.cfg-left .sp-body { margin:18px 0 28px; }
+.cfg-points { display:flex; flex-direction:column; gap:12px; }
+.cp { display:flex; align-items:center; gap:12px; font-size:.85rem; color:rgba(237,232,224,.45); }
+.cp::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--green); flex-shrink:0; box-shadow:0 0 6px rgba(29,181,96,.4); }
+
+.qform {
+  background:var(--s2); border:1px solid var(--ln); border-top:2px solid var(--red);
+  padding:36px; box-shadow:0 0 40px rgba(224,32,32,.08);
+}
+.qf-title { font-family:'Orbitron',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#fff; padding-bottom:18px; border-bottom:1px solid var(--ln); margin-bottom:22px; }
+.fg { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; }
+.fg label { font-family:'Orbitron',sans-serif; font-size:.52rem; letter-spacing:.38em; text-transform:uppercase; color:var(--grey); }
+.fg input,.fg select,.fg textarea { background:var(--bg); border:1px solid var(--ln); color:var(--chalk); padding:10px 14px; font-family:'Exo 2',sans-serif; font-size:.9rem; font-weight:300; outline:none; transition:border-color .2s,box-shadow .2s; width:100%; border-radius:1px; }
+.fg input:focus,.fg select:focus,.fg textarea:focus { border-color:rgba(224,32,32,.5); box-shadow:0 0 0 2px rgba(224,32,32,.07); }
+.fg input::placeholder,.fg textarea::placeholder { color:rgba(255,255,255,.18); }
+.fg select { appearance:none; cursor:pointer; }
+.fg select option { background:var(--s1); }
+.fg textarea { resize:vertical; min-height:80px; }
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.qty-wrap { display:flex; align-items:center; gap:10px; }
+.qty-ctrl { display:flex; align-items:center; border:1px solid var(--ln); border-radius:1px; overflow:hidden; }
+.qb { width:34px; height:34px; background:var(--s3); color:rgba(255,255,255,.4); font-size:1rem; transition:background .2s; }
+.qb:hover { background:var(--red); color:#fff; }
+.qv { width:40px; text-align:center; font-family:'Orbitron',sans-serif; font-size:.85rem; font-weight:700; color:#fff; background:transparent; border:none; outline:none; }
+.qsub { width:100%; margin-top:8px; font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#fff; background:var(--red); padding:15px; display:flex; align-items:center; justify-content:center; gap:10px; transition:background .2s,box-shadow .2s; box-shadow:0 0 20px rgba(224,32,32,.2); }
+.qsub:hover { background:var(--red2); box-shadow:0 4px 24px rgba(224,32,32,.35); }
+
+/* ════════════════════════════════════════
+   CONTACT
+════════════════════════════════════════ */
+.contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:72px; }
+.ci-list { margin-top:32px; display:flex; flex-direction:column; gap:2px; }
+.ci { display:flex; align-items:center; gap:18px; padding:18px 20px; background:var(--s1); border:1px solid var(--ln); transition:background .2s,border-color .2s; }
+.ci:hover { background:var(--s2); border-color:var(--ln2); }
+.ci-icon { width:36px; height:36px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.9rem; border-radius:1px; }
+.ci-icon.r { background:var(--red-g); color:var(--red); }
+.ci-icon.b { background:var(--blue-g); color:var(--blue); }
+.ci-icon.g { background:var(--grn-g); color:var(--green); }
+.ci-lbl { font-family:'Orbitron',sans-serif; font-size:.52rem; letter-spacing:.38em; text-transform:uppercase; color:var(--grey); }
+.ci-val { font-size:.95rem; color:var(--chalk); margin-top:2px; }
+
+.cform { background:var(--s2); border:1px solid var(--ln); border-top:2px solid var(--blue); padding:36px; }
+.cform .fg label { color:rgba(255,255,255,.28); }
+.cform .fg input,.cform .fg textarea { background:var(--s1); }
+.cform .fg input:focus,.cform .fg textarea:focus { border-color:rgba(29,116,232,.5); box-shadow:0 0 0 2px rgba(29,116,232,.07); }
+.csub { width:100%; margin-top:8px; font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#fff; background:var(--blue); padding:14px; display:flex; align-items:center; justify-content:center; transition:background .2s; box-shadow:0 0 16px rgba(29,116,232,.2); }
+.csub:hover { filter:brightness(1.15); }
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer { background:var(--s1); border-top:1px solid var(--ln); padding:56px 56px 28px; }
+.ft { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:52px; margin-bottom:44px; }
+.f-logo { height:30px; filter:brightness(0) invert(1); margin-bottom:14px; }
+.f-desc { font-size:.85rem; line-height:1.75; color:rgba(237,232,224,.3); max-width:250px; }
+.f-col-h { font-family:'Orbitron',sans-serif; font-size:.56rem; letter-spacing:.42em; text-transform:uppercase; color:var(--red); margin-bottom:14px; }
+.f-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.f-links a { font-size:.85rem; color:rgba(237,232,224,.28); transition:color .2s; }
+.f-links a:hover { color:rgba(237,232,224,.75); }
+.f-bar { display:flex; justify-content:space-between; align-items:center; padding-top:22px; border-top:1px solid var(--ln); }
+.f-copy { font-family:'Orbitron',sans-serif; font-size:.52rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(255,255,255,.2); }
+.f-certs { display:flex; gap:16px; }
+.f-cert { display:flex; align-items:center; gap:6px; font-family:'Orbitron',sans-serif; font-size:.5rem; letter-spacing:.28em; text-transform:uppercase; }
+.f-cert.g { color:rgba(29,181,96,.4); }
+.f-cert.b { color:rgba(29,116,232,.4); }
+.f-cert .d { width:4px; height:4px; border-radius:50%; background:currentColor; }
+
+/* ════════════════════════════════════════
+   MODEL MODAL — full specs drawer
+════════════════════════════════════════ */
+.modal-overlay {
+  position:fixed; inset:0; z-index:800;
+  background:rgba(13,13,15,.92);
+  backdrop-filter:blur(12px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:opacity .3s;
+}
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal {
+  background:var(--s2); border:1px solid var(--grey3);
+  border-top:3px solid var(--red);
+  width:min(720px, 92vw); max-height:88vh;
+  overflow-y:auto; position:relative;
+  transform:translateY(24px); transition:transform .3s;
+}
+.modal-overlay.open .modal { transform:translateY(0); }
+.modal-img { width:100%; height:280px; object-fit:cover; filter:brightness(.75) saturate(.8); }
+.modal-body { padding:36px; }
+.modal-type {
+  font-family:'Orbitron',sans-serif; font-size:.58rem; letter-spacing:.45em;
+  text-transform:uppercase; color:var(--red); margin-bottom:6px;
+}
+.modal-name {
+  font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:800;
+  color:#fff; line-height:1; margin-bottom:24px; letter-spacing:-.01em;
+}
+.modal-specs-label {
+  font-family:'Orbitron',sans-serif; font-size:.58rem; letter-spacing:.38em;
+  text-transform:uppercase; color:var(--grey2);
+  border-bottom:1px solid var(--grey3); padding-bottom:10px; margin-bottom:16px;
+}
+.modal-spec {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:.86rem; line-height:1.68; color:rgba(237,232,224,.55);
+}
+.modal-spec::before {
+  content:''; width:5px; height:5px; border-radius:50%;
+  background:var(--grey3); flex-shrink:0; margin-top:7px;
+}
+.modal-spec:last-child { border-bottom:none; }
+.modal-close {
+  position:absolute; top:16px; right:16px; z-index:10;
+  width:32px; height:32px; background:rgba(255,255,255,.08);
+  border:1px solid var(--grey3); border-radius:1px;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--grey2); font-size:1rem; cursor:none;
+  transition:background .2s, color .2s;
+}
+.modal-close:hover { background:var(--red); color:#fff; border-color:var(--red); }
+.modal-cta {
+  display:block; margin-top:24px; width:100%;
+  font-family:'Orbitron',sans-serif; font-size:.72rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:#fff; background:var(--red); padding:14px;
+  text-align:center; transition:background .2s;
+  box-shadow:0 0 20px rgba(224,32,32,.2);
+}
+.modal-cta:hover { background:var(--red2); }
+
+/* Why card 06 gets grey accent */
+.wc.cg6 .wc-bar { background:var(--grey); }
+.wc.cg6 .wc-icon { background:rgba(107,114,128,.12); color:var(--grey2); }
+
+@media(max-width:960px){
+  #sidebar{display:none;}
+  #main{margin-left:0;}
+  .about-layout,.cfg-layout,.contact-layout,.spotlight{grid-template-columns:1fr;}
+  .sp-img{height:280px;}
+  .why-grid{grid-template-columns:1fr;}
+  .range-grid{grid-template-columns:1fr 1fr;}
+  .range-grid .wide{grid-column:span 1;}
+  .ft{grid-template-columns:1fr 1fr;}
+  .sec{padding:72px 24px;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<div id="sidebar">
+  <div class="sb-logo">
+    <img id="sbLogo" alt="BUSCO">
+    <div class="sb-tagline">The Predator · Built for Africa</div>
+  </div>
+  <nav class="sb-nav">
+    <a href="#hero"         class="sb-item active" data-sec="hero">        <span class="sb-num">00</span> Home</a>
+    <a href="#about"        class="sb-item"         data-sec="about">       <span class="sb-num">01</span> About</a>
+    <a href="#range"        class="sb-item"         data-sec="range">       <span class="sb-num">02</span> Range</a>
+    <a href="#predator"     class="sb-item"         data-sec="predator">    <span class="sb-num">03</span> Predator</a>
+    <a href="#why"          class="sb-item"         data-sec="why">         <span class="sb-num">04</span> Why Busco</a>
+    <a href="#gallery"      class="sb-item"         data-sec="gallery">     <span class="sb-num">05</span> Gallery</a>
+    <a href="#configurator" class="sb-item"         data-sec="configurator"><span class="sb-num">06</span> Spec &amp; Quote</a>
+    <a href="#contact"      class="sb-item"         data-sec="contact">     <span class="sb-num">07</span> Contact</a>
+  </nav>
+  <div class="sb-status">
+    <div class="sb-chip g"><div class="sb-dot g"></div>NRCS Approved</div>
+    <div class="sb-chip g"><div class="sb-dot g"></div>SABS Certified</div>
+    <div class="sb-chip b"><div class="sb-dot b"></div>Homologated</div>
+    <div class="sb-chip a"><div class="sb-dot a"></div>Est. 1996</div>
+    <div class="sb-phone">0861 114 590</div>
+  </div>
+</div>
+
+<!-- ═══════ MAIN ═══════ -->
+<div id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-dots"></div>
+    <div class="hero-diag"></div>
+    <div class="hero-scan"></div>
+
+    <div class="hero-est">
+      <div class="est-label">Established</div>
+      <div class="est-year">1996</div>
+    </div>
+
+    <div class="hero-oem">
+      <div class="hero-oem-label">OEM Partners</div>
+      <div class="oem-pill">Scania</div>
+      <div class="oem-pill">Mercedes-Benz</div>
+      <div class="oem-pill">Volvo</div>
+      <div class="oem-pill">MAN · Hino · UD</div>
+    </div>
+
+    <div class="hero-body">
+      <div class="hero-kicker"><div class="k-line"></div><span class="k-txt">South Africa's Finest</span></div>
+      <h1 class="hero-h1">
+        BUSCO
+        <em>PREDATOR</em>
+      </h1>
+      <p class="hero-desc">Manufacturer &amp; supplier of NRCS/SABS approved, homologated bus bodywork. Commuter and Supreme variants across 8 OEM chassis — built for Africa since 1996.</p>
+      <div class="hero-ctas">
+        <a href="#range" class="btn-primary">Explore Range →</a>
+        <a href="#configurator" class="btn-ghost">Spec &amp; Quote</a>
+      </div>
+    </div>
+
+    <div class="hero-strip">
+      <div class="hs"><div class="hs-n">29+</div><div class="hs-l">Years Active</div></div>
+      <div class="hs"><div class="hs-n">8</div><div class="hs-l">OEM Partners</div></div>
+      <div class="hs"><div class="hs-n">14</div><div class="hs-l">Predator Models</div></div>
+      <div class="hs"><div class="hs-n" style="color:var(--green);text-shadow:0 0 12px rgba(29,181,96,.4)">✓</div><div class="hs-l">NRCS / SABS</div></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="mq">
+    <div class="mq-t">
+      <span class="mi r">NRCS</span><span class="mi sep">·</span>
+      <span class="mi g">SABS Certified</span><span class="mi sep">·</span>
+      <span class="mi b">Scania</span><span class="mi sep">·</span>
+      <span class="mi b">Mercedes-Benz</span><span class="mi sep">·</span>
+      <span class="mi b">Volvo</span><span class="mi sep">·</span>
+      <span class="mi b">MAN</span><span class="mi sep">·</span>
+      <span class="mi b">Hino</span><span class="mi sep">·</span>
+      <span class="mi b">UD Trucks</span><span class="mi sep">·</span>
+      <span class="mi b">Iveco</span><span class="mi sep">·</span>
+      <span class="mi b">VDL / DAF</span><span class="mi sep">·</span>
+      <span class="mi a">Est. 1996</span><span class="mi sep">·</span>
+      <span class="mi r">The Predator Design</span><span class="mi sep">·</span>
+      <span class="mi r">NRCS</span><span class="mi sep">·</span>
+      <span class="mi g">SABS Certified</span><span class="mi sep">·</span>
+      <span class="mi b">Scania</span><span class="mi sep">·</span>
+      <span class="mi b">Mercedes-Benz</span><span class="mi sep">·</span>
+      <span class="mi b">Volvo</span><span class="mi sep">·</span>
+      <span class="mi b">MAN</span><span class="mi sep">·</span>
+      <span class="mi b">Hino</span><span class="mi sep">·</span>
+      <span class="mi b">UD Trucks</span><span class="mi sep">·</span>
+      <span class="mi b">Iveco</span><span class="mi sep">·</span>
+      <span class="mi b">VDL / DAF</span><span class="mi sep">·</span>
+      <span class="mi a">Est. 1996</span><span class="mi sep">·</span>
+      <span class="mi r">The Predator Design</span><span class="mi sep">·</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="sec sec-dark" id="about">
+    <div class="sec-tag rv"><span class="st-num">01</span><div class="st-line"></div><span class="st-label">About Busco</span></div>
+    <h2 class="sh2 rv d1">South Africa's Premier<br><span class="r">Bus Bodywork</span> Builder</h2>
+    <div class="about-layout">
+      <div>
+        <p class="about-intro rv d1"><strong>Busco Marketing</strong> is the sales &amp; marketing division of <strong>Busafrica</strong> — South Africa's premier manufacturer and supplier of NRCS/SABS approved, fully homologated bus bodywork. Since 1996 we have delivered peace of mind products with outstanding quality at value for money — built for Africa, trusted across the continent.</p>
+        <div class="stat-grid rv d2">
+          <div class="scard"><div class="scard-accent" style="background:var(--red)"></div><div class="scard-n" style="color:var(--red)">29+</div><div class="scard-l">Years Experience</div><div class="scard-wm">29</div></div>
+          <div class="scard"><div class="scard-accent" style="background:var(--blue)"></div><div class="scard-n" style="color:var(--blue)">8</div><div class="scard-l">OEM Partners</div><div class="scard-wm">8</div></div>
+          <div class="scard"><div class="scard-accent" style="background:var(--amber)"></div><div class="scard-n" style="color:var(--amber)">14</div><div class="scard-l">Predator Models</div><div class="scard-wm">14</div></div>
+          <div class="scard"><div class="scard-accent" style="background:var(--green)"></div><div class="scard-n" style="color:var(--green)">2</div><div class="scard-l">Body Variants</div><div class="scard-wm">2</div></div>
+        </div>
+        <div class="oem-list rv d3">
+          <span class="oem-tag">Scania</span><span class="oem-tag">Mercedes-Benz</span>
+          <span class="oem-tag">Volvo</span><span class="oem-tag">VW / MAN</span>
+          <span class="oem-tag">VDL / DAF</span><span class="oem-tag">Iveco</span>
+          <span class="oem-tag">Hino</span><span class="oem-tag">UD Trucks</span>
+        </div>
+      </div>
+      <div class="cert-panel rv d2">
+        <div class="cert-card">
+          <div class="cc-icon" style="background:var(--grn-g);color:var(--green)">✓</div>
+          <div><div class="cc-h" style="color:var(--green)">NRCS Approved</div><div class="cc-b">Full National Regulator for Compulsory Specifications approval — meeting the highest SA passenger transport standards.</div></div>
+        </div>
+        <div class="cert-card">
+          <div class="cc-icon" style="background:var(--grn-g);color:var(--green)">✓</div>
+          <div><div class="cc-h" style="color:var(--green)">SABS Certified</div><div class="cc-b">South African Bureau of Standards certified bodywork — quality and compliance guaranteed on every build.</div></div>
+        </div>
+        <div class="cert-card">
+          <div class="cc-icon" style="background:var(--blue-g);color:var(--blue)">◈</div>
+          <div><div class="cc-h" style="color:var(--blue)">Fully Homologated</div><div class="cc-b">Across 8 OEM chassis platforms — officially authorised bus bodywork manufacturer with full type approval.</div></div>
+        </div>
+        <div class="cert-card">
+          <div class="cc-icon" style="background:var(--amb-g);color:var(--amber)">★</div>
+          <div><div class="cc-h" style="color:var(--amber)">Est. 1996 — Heritage</div><div class="cc-b">29+ years of unmatched expertise in South African bus bodywork — knowledge built into every Predator.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANGE -->
+  <section class="sec sec-mid" id="range">
+    <div class="range-controls rv">
+      <div>
+        <div class="sec-tag" style="margin-bottom:16px"><span class="st-num">02</span><div class="st-line"></div><span class="st-label">The Range</span></div>
+        <h2 class="sh2">The <span class="r">Predator</span> Range</h2>
+      </div>
+      <div class="filter-wrap">
+        <button class="ftab on" onclick="filt('all',this)">All</button>
+        <button class="ftab" onclick="filt('commuter',this)">Commuter</button>
+        <button class="ftab" onclick="filt('supreme',this)">Supreme</button>
+      </div>
+    </div>
+    <div class="range-grid" id="rg"></div>
+  </section>
+
+  <!-- PREDATOR SPOTLIGHT -->
+  <div class="spotlight" id="predator">
+    <div class="sp-img"><img src="https://busco.co.za/images/11.jpg" alt="Predator Supreme"></div>
+    <div class="sp-content">
+      <span class="sp-eyebrow">Flagship — Predator Design</span>
+      <h2 class="sh2 sp-h2 rv">PREDATOR<br><span class="r">SUPREME</span></h2>
+      <p class="sp-body rv d1">Purpose-built for South African roads and regulations — aerodynamic, durable, and fully homologated to NRCS/SABS standards. Available in Commuter and Supreme across 8 OEM chassis.</p>
+      <div class="spec-grid rv d2">
+        <div class="sc"><div class="sc-val">2</div><div class="sc-key">Variants</div></div>
+        <div class="sc"><div class="sc-val" style="color:var(--green)">NRCS</div><div class="sc-key">Certified</div></div>
+        <div class="sc"><div class="sc-val" style="color:var(--blue)">8</div><div class="sc-key">OEM Chassis</div></div>
+        <div class="sc"><div class="sc-val">🇿🇦</div><div class="sc-key">Made in SA</div></div>
+      </div>
+      <a href="#configurator" class="btn-primary rv d3" style="align-self:flex-start">Configure Yours →</a>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <section class="sec sec-dark" id="why">
+    <div class="sec-tag rv"><span class="st-num">04</span><div class="st-line"></div><span class="st-label">Why Busco</span></div>
+    <h2 class="sh2 rv d1">The Standard Others<br><span class="r">Measure Against</span></h2>
+    <div class="why-grid">
+      <div class="wc rv"><div class="wc-bar r"></div><div class="wc-num">01</div><div class="wc-icon r">◈</div><div class="wc-h">Homologated Excellence</div><div class="wc-b">Every Busco vehicle meets NRCS and SABS standards — full homologation means total peace of mind for operators, fleet managers and passengers.</div></div>
+      <div class="wc rv d1"><div class="wc-bar b"></div><div class="wc-num">02</div><div class="wc-icon b">●</div><div class="wc-h">8 OEM Partnerships</div><div class="wc-b">Officially approved across Scania, Mercedes-Benz, Volvo, MAN, Hino, Iveco, UD Trucks and VDL/DAF — flexibility for any fleet specification.</div></div>
+      <div class="wc rv"><div class="wc-bar g"></div><div class="wc-num">03</div><div class="wc-icon g">✓</div><div class="wc-h">NRCS &amp; SABS Certified</div><div class="wc-b">Certified to the highest SA passenger transport standards — every bodywork build meets full regulatory compliance from the ground up.</div></div>
+      <div class="wc rv d1"><div class="wc-bar a"></div><div class="wc-num">04</div><div class="wc-icon a">★</div><div class="wc-h">29+ Years Heritage</div><div class="wc-b">Since 1996, unmatched expertise in South African bus bodywork — knowledge and craftsmanship built into every Predator.</div></div>
+      <div class="wc rv"><div class="wc-bar r"></div><div class="wc-num">05</div><div class="wc-icon r">▲</div><div class="wc-h">Commuter &amp; Supreme</div><div class="wc-b">Urban dense routes or long-distance premium corridors — the Predator range covers every South African operating environment.</div></div>
+      <div class="wc rv d1"><div class="wc-bar b"></div><div class="wc-num">06</div><div class="wc-icon b">■</div><div class="wc-h">Beyond-Expectation Service</div><div class="wc-b">From first enquiry through specification, delivery and full aftermarket support for the operational life of your fleet.</div></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <div class="gallery" id="gallery">
+    <div class="gallery-header">
+      <div class="sec-tag" style="margin-bottom:12px"><span class="st-num" style="color:rgba(224,32,32,.5)">05</span><div class="st-line"></div><span class="st-label">The Fleet</span></div>
+      <h2 class="sh2">Predator <span class="r">In The Field</span></h2>
+    </div>
+    <div class="gstrip"><div class="gt fwd" id="gR1"></div></div>
+    <div class="gstrip"><div class="gt rev" id="gR2"></div></div>
+  </div>
+
+  <!-- CONFIGURATOR -->
+  <section class="sec sec-mid" id="configurator">
+    <div class="sec-tag rv"><span class="st-num">06</span><div class="st-line"></div><span class="st-label">Spec &amp; Quote</span></div>
+    <div class="cfg-layout">
+      <div class="cfg-left">
+        <h2 class="sh2 rv">Configure Your<br><span class="r">Predator</span></h2>
+        <p class="sp-body rv d1">Choose your chassis, variant and requirements — our team responds with a full personalised quote within 24 hours.</p>
+        <div class="cfg-points rv d2">
+          <div class="cp">14 Predator models across 8 OEM chassis</div>
+          <div class="cp">Commuter and Supreme variants available</div>
+          <div class="cp">Specify quantity, delivery and timeline</div>
+          <div class="cp">Detailed quote within 24 hours</div>
+          <div class="cp">Technical specification PDFs on request</div>
+        </div>
+      </div>
+      <div class="qform rv d1">
+        <div class="qf-title">Build Your Quote</div>
+        <div class="fg"><label>OEM Chassis</label><select id="cfgCh" onchange="updateMdl()"><option value="">Select chassis brand</option><option>Hino</option><option>MAN (Predator)</option><option>Mercedes-Benz</option><option>Scania</option><option>Volkswagen</option><option>Volvo</option></select></div>
+        <div class="fg"><label>Model</label><select id="cfgMdl"><option>Select chassis first</option></select></div>
+        <div class="fg"><label>Body Type</label><select><option>Commuter</option><option>Supreme</option></select></div>
+        <div class="fg"><label>Quantity</label><div class="qty-wrap"><div class="qty-ctrl"><button class="qb" onclick="qty(-1)">−</button><input class="qv" id="qv" value="1" readonly><button class="qb" onclick="qty(1)">+</button></div></div></div>
+
+<!-- MODEL MODAL -->
+<div class="modal-overlay" id="modelModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-img" id="modalImg" alt="">
+    <div class="modal-body">
+      <div class="modal-type" id="modalType"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-specs-label">Predator Specifications</div>
+      <div id="modalSpecs"></div>
+      <a href="#configurator" class="modal-cta" onclick="closeModal()">Configure &amp; Request Quote →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const L='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';
+if(L&&L.length>100){['sbLogo','fLogo'].forEach(id=>{const el=document.getElementById(id);if(el)el.src='data:image/png;base64,'+L;});}
+
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function t(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(t);})();
+document.querySelectorAll('a,button,.rcard,.scard,.wc,.ci,.oem-tag,.sc,.cert-card,.oem-pill,.modal-close').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+const hb=document.getElementById('heroBg');
+window.addEventListener('scroll',()=>hb.style.transform=`translateY(${scrollY*.35}px)`,{passive:true});
+
+const sections=['hero','about','range','predator','why','gallery','configurator','contact'];
+const sbItems=document.querySelectorAll('.sb-item');
+window.addEventListener('scroll',()=>{
+  let ac='hero';
+  sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=120)ac=id;});
+  sbItems.forEach(a=>{a.classList.toggle('active',a.dataset.sec===ac);});
+},{passive:true});
+
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+const models=[
+  {img:1,brand:'Hino',name:'EVO 3',type:'commuter',fullName:'Predator Hino EVO 3 Commuter',specs:['"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings','"Curved type" L.E.D. rear tail-lights with top repeater lights']},
+  {img:2,brand:'Hino',name:'R.A.V',type:'commuter',fullName:'Predator Hino R.A.V (Remote Access Vehicle)',specs:['"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectyl injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. Type interior saloon lights with L.E.D. Step & cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','Separate bodyside "Battery luggage locker compartment" with tool box locker','"Curved type" rear tail-lights with top repeater lights','Coach "Slam Type" Passenger door','Split back passenger seats in a (3×2) or (2×2) configuration','Bodyside interior and ceiling panels in "fibreglass" light grey panels','Bodywork fully compliant to S.A.B.S / N.R.C.S Homologation']},
+  {img:3,brand:'Hino',name:'Supreme',type:'supreme',fullName:'Predator Hino Supreme',specs:['New Shape "Predator Supreme" front dome with "Elephant Ear" multi-focus rear view mirrors and 2-piece "deep curved" windscreen and GRP wheel arches','"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings']},
+  {img:4,brand:'MAN',name:'EVO 3',type:'commuter',fullName:'Predator MAN EVO 3 Commuter',specs:['"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings','"Curved type" L.E.D. rear tail-lights with top repeater lights']},
+  {img:5,brand:'MAN',name:'Supreme',type:'supreme',fullName:'Predator MAN Supreme',specs:['New Shape "Predator Supreme" front dome with "Elephant Ear" multi-focus rear view mirrors and 2-piece "deep curved" windscreen and GRP wheel arches','"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings']},
+  {img:6,brand:'Mercedes-Benz',name:'Commuter',type:'commuter',fullName:'Predator Mercedes-Benz EVO 3 Commuter',specs:['"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings','"Curved type" L.E.D. rear tail-lights with top repeater lights']},
+  {img:7,brand:'Mercedes-Benz',name:'Supreme',type:'supreme',fullName:'Predator Mercedes-Benz Supreme',specs:['New Shape "Predator Supreme" front dome with "Elephant Ear" multi-focus rear view mirrors and 2-piece "deep curved" windscreen and GRP wheel arches','"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker']},
+  {img:8,brand:'Scania',name:'Commuter',type:'commuter',fullName:'Predator Scania F250 EVO 3 Commuter',specs:['"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings','"Curved type" L.E.D. rear tail-lights with top repeater lights']},
+  {img:9,brand:'Scania',name:'F250 Supreme',type:'supreme',fullName:'Predator Scania F250 Supreme',specs:['New Shape "Predator Supreme" front dome with "Elephant Ear" multi-focus rear view mirrors and 2-piece "deep curved" windscreen and GRP wheel arches','"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings']},
+  {img:10,brand:'Scania',name:'F310 Supreme',type:'supreme',fullName:'Predator Scania F310 Supreme',specs:['New Shape "Predator Supreme" front dome with "Elephant Ear" multi-focus rear view mirrors and 2-piece "deep curved" windscreen and GRP wheel arches','"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker']},
+  {img:11,brand:'Scania',name:'K410 Supreme',type:'supreme',featured:true,fullName:'Predator Scania K410 Supreme',specs:['New Shape "Predator Supreme" front dome with "Elephant Ear" multi-focus rear view mirrors and 2-piece "deep curved" windscreens and GRP wheel arches','"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectyl injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. Type interior saloon lights with L.E.D. Step & cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P styled dashboard with instrument cluster, insulated for Sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker']},
+  {img:12,brand:'Volkswagen',name:'Commuter',type:'commuter',fullName:'Predator Volkswagen EVO 3 Commuter',specs:['"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectile injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. type interior saloon lights with L.E.D. step and cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P. styled dashboard with instrument cluster, insulated for sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker','ABS Cubby hole compartment above driver for personal belongings','"Curved type" L.E.D. rear tail-lights with top repeater lights',"Driver's cab door"]},
+  {img:13,brand:'Volvo',name:'Commuter',type:'commuter',fullName:'Predator Volvo Commuter',specs:['"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectyl injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. Type interior saloon lights with L.E.D. Step & cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P styled dashboard with instrument cluster, insulated for Sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker']},
+  {img:14,brand:'Volvo',name:'Supreme',type:'supreme',fullName:'Predator Volvo Supreme',specs:['New Shape "Predator Supreme" front dome with "Elephant Ear" multi-focus rear view mirrors and 2-piece "deep curved" windscreens and GRP wheel arches','"Hi-Rise" bodywork WA355 "A-grade" 3mm tubular sections, fully "anti-corrosion" phosphate treated structure with polyurethane / tectyl injected into structure',"Fully adjustable driver's seat with safety belt",'Flush fitting L.E.D. Type interior saloon lights with L.E.D. Step & cab lights','2mm Galvanized steel saloon floors, covered with heavy duty floor covering','New series G.R.P styled dashboard with instrument cluster, insulated for Sound and heat sealing / dampening','Separate bodyside "Battery luggage locker compartment" with tool box locker']},
+];
+
+function buildRange(f='all'){
+  const g=document.getElementById('rg');
+  const list=f==='all'?models:models.filter(m=>m.type===f);
+  g.innerHTML=list.map((m,i)=>`
+    <div class="rcard${i===0&&f==='all'?' wide':''}" onclick="openModal(${models.indexOf(m)})" style="cursor:none">
+      <img src="https://busco.co.za/images/${m.img}.jpg" alt="${m.fullName}" loading="lazy">
+      <div class="rcard-ov">
+        <div class="rcard-type">Predator ${m.type==='commuter'?'Commuter':'Supreme'}</div>
+        <div class="rcard-name">${m.brand} ${m.name}</div>
+      </div>
+      <div class="rcard-arr">↗</div>
+    </div>`).join('');
+}
+buildRange();
+function filt(t,btn){document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');buildRange(t);}
+
+function openModal(idx){
+  const m=models[idx];
+  document.getElementById('modalImg').src=`https://busco.co.za/images/${m.img}.jpg`;
+  document.getElementById('modalType').textContent=`Predator ${m.type==='commuter'?'Commuter':'Supreme'} · ${m.brand}`;
+  document.getElementById('modalName').textContent=m.fullName;
+  document.getElementById('modalSpecs').innerHTML=m.specs.map(s=>`<div class="modal-spec">${s}</div>`).join('');
+  document.getElementById('modelModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  const ch=document.getElementById('cfgCh');
+  if(ch){const v=m.brand==='Volkswagen'?'Volkswagen':m.brand;ch.value=v;updateMdl();}
+}
+function closeModal(){document.getElementById('modelModal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('modelModal').addEventListener('click',e=>{if(e.target===document.getElementById('modelModal'))closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function buildG(el,imgs){const d=[...imgs,...imgs];el.innerHTML=d.map(n=>`<div class="gi"><img src="https://busco.co.za/images/${n}.jpg" loading="lazy"></div>`).join('');}
+buildG(document.getElementById('gR1'),[1,2,3,4,5,6,7]);
+buildG(document.getElementById('gR2'),[8,9,10,11,12,13,14]);
+
+const cfgD={'Hino':['EVO 3','R.A.V','Supreme'],'MAN':['EVO 3','Supreme'],'Mercedes-Benz':['Commuter','Supreme'],'Scania':['F250 EVO 3 Commuter','F250 Supreme','F310 Supreme','K410 Supreme'],'Volkswagen':['EVO 3 Commuter'],'Volvo':['Commuter','Supreme']};
+function updateMdl(){const c=document.getElementById('cfgCh').value;const s=document.getElementById('cfgMdl');s.innerHTML=cfgD[c]?cfgD[c].map(m=>`<option>${m}</option>`).join(''):'<option>Select chassis first</option>';}
+let qn=1;
+function qty(d){qn=Math.max(1,Math.min(500,qn+d));document.getElementById('qv').value=qn;}
+function submitQ(btn){const c=document.getElementById('cfgCh').value;if(!c){alert('Please select a chassis first.');return;}btn.textContent='✓ Quote Request Sent';btn.style.background='#1DB560';btn.style.boxShadow='0 0 20px rgba(29,181,96,.35)';setTimeout(()=>{btn.textContent='Submit Quote Request →';btn.style.background='';btn.style.boxShadow='';},3200);}
+</script>
+</body>
+</html>
