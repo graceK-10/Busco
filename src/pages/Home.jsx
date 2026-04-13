@@ -17,6 +17,7 @@ import volvoLogo from '../assets/Logos/volvo-logo-1.png';
 import manLogo from '../assets/Logos/man-logo-1.png';
 import hinoLogo from '../assets/Logos/hino-logo-1.png';
 import oemStripLogo from '../assets/Logos/Busco-logos-4web-2.png';
+import redAccent from '../assets/Logos/red-accent.png';
 
 const oemLogos = [
   { name: 'Scania', src: scaniaLogo, wide: false },
@@ -586,9 +587,10 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
           </div>
         </section>
 
+{/* ABOUT SECTION START */}
 <section
   id="about"
-  className="relative overflow-hidden border-t border-black/5 bg-[#f1efec] px-6 py-16 text-[#111111] sm:px-10 lg:px-16 lg:py-24"
+  className="relative border-t border-black/5 bg-[#f1efec] px-6 py-16 text-[#111111] sm:px-10 lg:px-16 lg:py-24"
 >
   <div className="pointer-events-none absolute inset-0">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.85),transparent_38%)]" />
@@ -799,6 +801,29 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
       }
     `}
   </style>
+  <div className="pointer-events-none absolute bottom-0 right-0 z-10">
+  <img
+    src={redAccent}
+    alt=""
+    className="w-[180px] sm:w-[240px] lg:w-[250px] opacity-95"
+  />
+</div>
+
+<div className="pointer-events-none absolute left-0 top-0 z-10">
+  <img
+    src={redAccent}
+    alt=""
+    className="w-[120px] rotate-180 sm:w-[160px] lg:w-[220px] opacity-90"
+  />
+</div>
+
+{/* <div className="pointer-events-none absolute right-0 top-0 z-10">
+  <img
+    src={redAccent}
+    alt=""
+    className="w-[120px] rotate-180 sm:w-[160px] lg:w-[220px] opacity-90"
+  />
+</div> */}
 </section>
 {/* ABOUT SECTION END */}
 
