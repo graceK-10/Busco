@@ -364,35 +364,35 @@ const showNextBus = () => {
 
 
 
-  return (
-    <div
-      className="min-h-screen bg-[#0b0b0d] px-3 py-3 text-white sm:px-4 lg:px-5"
-      style={{
-        backgroundImage:
-          'radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 28%), linear-gradient(180deg, #111214 0%, #09090b 100%)',
-      }}
-    >
-      <main className="mx-auto w-full max-w-[1580px] overflow-hidden rounded-[28px] border border-white/10 bg-[#111214] shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
+return (
+  <div
+    className="min-h-screen bg-[#f4f1ea] text-[#111111] dark:bg-[#0b0b0d] dark:text-white"
+    style={{
+      backgroundImage:
+        'radial-gradient(circle at top, rgba(255,255,255,0.95), transparent 62%), linear-gradient(180deg, #f4f1ea 0%, #ece8e0 100%)',
+    }}
+  >
+    <main className="w-full overflow-hidden bg-[#f4f1ea] dark:bg-[#111214]">
         <section
           id="home"
 className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 2xl:min-h-[720px]"
         >
-          <div className="border-b border-white/10 bg-[#09090b] px-4 py-2 sm:px-6 lg:px-8">
+          <div className="border-b border-white/10 bg-[#f4f1ea] px-4 py-2 sm:px-6 lg:px-8">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-center gap-4">
                 <img
                   src={buscoLogo}
                   alt="BUSCO logo"
-                  className="h-9 w-auto object-contain sm:h-10"
+                  className="h-16 w-auto object-contain sm:h-16"
                 />
               </div>
 
-              <nav className="flex flex-wrap items-center gap-5 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70">
+              <nav className="flex flex-wrap items-center gap-5 text-[10px] font-semibold uppercase tracking-[0.32em] text-red-600">
                 {navItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="transition hover:text-white"
+                    className="transition hover:text-black"
                   >
                     {item.label}
                   </a>
@@ -409,7 +409,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
             </div>
           </div>
 
-          <div className="border-b border-white/10 bg-[#101113]/95 px-4 py-2 sm:px-6 lg:px-8">
+          <div className="border-b border-white/10 bg-[#f4f1ea]/20 px-4 py-2 sm:px-6 lg:px-8">
             <div className="grid gap-3 xl:grid-cols-5">
               {colourTabs.map((tab) => {
                 const isActive = tab.id === activeScheme.id;
@@ -421,10 +421,10 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
                     onClick={() => setActiveTab(tab.id)}
                     className="flex min-h-[42px] items-center gap-2.5 rounded-md border px-3.5 text-left transition duration-300 hover:border-white/25"
                     style={{
-                      borderColor: isActive ? tab.accent : 'rgba(255,255,255,0.08)',
+                      borderColor: isActive ? tab.accent : 'rgba(215,38,38,10)',
                       backgroundColor: isActive
-                        ? 'rgba(255,255,255,0.05)'
-                        : 'rgba(255,255,255,0.02)',
+                        ? 'rgba(215,38,0,0.2)'
+                        : 'rgba(255,255,255,0.2)',
                       boxShadow: isActive
                         ? `inset 0 0 0 1px ${tab.accent}40`
                         : 'none',
@@ -432,16 +432,16 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
                   >
                     <span className="flex items-center gap-1.5">
                       <span
-                        className="h-2.5 w-2.5 rounded-full border border-white/30"
+                        className="h-2.5 w-2.5 rounded-full border border-red-600"
                         style={{ backgroundColor: tab.accent }}
                       />
                       <span
-                        className="h-2.5 w-2.5 rounded-full border border-white/15"
+                        className="h-2.5 w-2.5 rounded-full border border-black"
                         style={{ backgroundColor: tab.pill }}
                       />
                     </span>
 
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/85">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-red-600">
                       {tab.number} {tab.label}
                     </span>
                   </button>
