@@ -312,7 +312,7 @@ export default function About() {
           </div>
 
           <div className="pointer-events-none absolute bottom-0 right-0 z-10">
-            <img src={redAccent} alt="" className="w-[180px] sm:w-[240px] lg:w-[250px] opacity-95" />
+            <img src={redAccent} alt="" className="w-[180px] sm:w-[240px] lg:w-[450px] opacity-95" />
           </div>
         </section>
       </main>

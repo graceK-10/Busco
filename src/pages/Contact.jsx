@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import buscoLogo from '../assets/Logos/busco-logo-1.png';
-import redAccent from '../assets/Logos/red-accent.png';
+// import redAccent from '../assets/Logos/red-accent.png';
 
 const navItems = [
   { label: 'Home', href: '#/' },
@@ -140,9 +140,9 @@ export default function Contact() {
         </section>
 
         <section className="relative px-6 pb-20 sm:px-10 lg:px-16 lg:pb-24">
-          <div className="pointer-events-none absolute right-0 top-0 z-10">
+          {/* <div className="pointer-events-none absolute right-0 top-0 z-10">
             <img src={redAccent} alt="" className="w-[140px] opacity-90 sm:w-[200px]" />
-          </div>
+          </div> */}
 
           <div className="relative z-10 mx-auto grid max-w-[1580px] gap-8 xl:grid-cols-[420px_minmax(0,1fr)] xl:items-start">
             <motion.div

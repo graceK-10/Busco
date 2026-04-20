@@ -800,7 +800,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
   <img
     src={redAccent}
     alt=""
-    className="w-[180px] sm:w-[240px] lg:w-[250px] opacity-95"
+    className="w-[180px] sm:w-[240px] lg:w-[450px] opacity-95"
   />
 </div>
 
@@ -808,7 +808,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
   <img
     src={redAccent}
     alt=""
-    className="w-[120px] rotate-180 sm:w-[160px] lg:w-[220px] opacity-90"
+    className="w-[120px] rotate-180 sm:w-[160px] lg:w-[350px] opacity-90"
   />
 </div>
 
