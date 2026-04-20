@@ -7,9 +7,7 @@ import buscoLogo from '../assets/Logos/busco-logo-1.png';
 import splitBackgroundVideo from '../assets/backgrounds/background4.mp4';
 import busArcticWhite from '../assets/Pictures/bus1.jpeg';
 import busPredatorRed from '../assets/Pictures/bus2.jpeg';
-import busSafariSteel from '../assets/Pictures/bus3.jpeg';
-import busMidnightBlue from '../assets/Pictures/bus-interior1.jpeg';
-import busRacingGreen from '../assets/Pictures/bus4.jpeg';
+import busSupportImage from '../assets/Pictures/bus3.jpeg';
 
 import scaniaLogo from '../assets/Logos/scania-logo-1.png';
 import mercLogo from '../assets/Logos/merc-logo-1.png';
@@ -29,9 +27,10 @@ const oemLogos = [
 ];
 
 const navItems = [
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '#/about' },
   { label: 'Range', href: '#range' },
   { label: 'Predator', href: '#predator' },
+  { label: 'Contact', href: '#/contact' },
   { label: 'Spec & Quote', href: '#spec-quote' },
 ];
 
@@ -54,36 +53,6 @@ const colourTabs = [
     text: '#fff5f5',
     pill: '#ffffff',
     image: busPredatorRed,
-    imagePosition: 'center center',
-  },
-  {
-    id: 'safari-steel',
-    number: '03',
-    label: 'Safari Steel',
-    accent: '#4d745d',
-    text: '#eef6ef',
-    pill: '#d6ad3d',
-    image: busSafariSteel,
-    imagePosition: 'center center',
-  },
-  {
-    id: 'midnight-blue',
-    number: '04',
-    label: 'Midnight Blue',
-    accent: '#234d8f',
-    text: '#eef4ff',
-    pill: '#8ab4ff',
-    image: busMidnightBlue,
-    imagePosition: 'center center',
-  },
-  {
-    id: 'racing-green',
-    number: '05',
-    label: 'Racing Green',
-    accent: '#0f5a3e',
-    text: '#effcf6',
-    pill: '#58c78d',
-    image: busRacingGreen,
     imagePosition: 'center center',
   },
 ];
@@ -146,7 +115,7 @@ const busBrands = {
         name: 'Hino Supreme',
         type: 'Predator Supreme',
         category: 'supreme',
-        image: busSafariSteel,
+        image: busSupportImage,
         blurb: 'A premium route body with stronger road presence and longer-journey comfort.',
         featureTitle: 'Best suited for',
         featureText: 'Regional passenger routes, staff transport and premium fleet movement.',
@@ -162,7 +131,7 @@ const busBrands = {
         name: 'Hino Predator',
         type: 'Predator Supreme',
         category: 'supreme',
-        image: busSafariSteel,
+        image: busSupportImage,
         blurb: 'A premium route body with stronger road presence and longer-journey comfort.',
         featureTitle: 'Best suited for',
         featureText: 'Regional passenger routes, staff transport and premium fleet movement.',
@@ -186,7 +155,7 @@ const busBrands = {
         name: 'Predator Core',
         type: 'Predator Commuter',
         category: 'commuter',
-        image: busRacingGreen,
+        image: busPredatorRed,
         blurb: 'A durable everyday platform shaped for consistent route performance.',
         featureTitle: 'Best suited for',
         featureText: 'Fleet operators who need dependable daily passenger movement.',
@@ -248,7 +217,7 @@ const busBrands = {
         name: 'Volvo Supreme',
         type: 'Predator Supreme',
         category: 'supreme',
-        image: busSafariSteel,
+        image: busSupportImage,
         blurb: 'A premium route platform for operators focused on stability and long-distance comfort.',
         featureTitle: 'Best suited for',
         featureText: 'Higher-comfort passenger transport and premium route operations.',
@@ -294,7 +263,7 @@ const busBrands = {
         name: 'Scania Supreme',
         type: 'Predator Supreme',
         category: 'supreme',
-        image: busRacingGreen,
+        image: busPredatorRed,
         blurb: 'A higher-end configuration built for visibility, comfort and longer-haul passenger movement.',
         featureTitle: 'Best suited for',
         featureText: 'Operators wanting a flagship premium route body.',
@@ -400,7 +369,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
               </nav>
 
               <a
-                href="#contact"
+                href="#/contact"
                 className="inline-flex min-h-[40px] items-center justify-center rounded-md px-5 text-[10px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
                 style={{ backgroundColor: '#d72626' }}
               >
@@ -410,7 +379,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
           </div>
 
           <div className="border-b border-white/10 bg-[#f4f1ea]/20 px-4 py-2 sm:px-6 lg:px-8">
-            <div className="grid gap-3 xl:grid-cols-5">
+            <div className="grid gap-3 xl:grid-cols-2">
               {colourTabs.map((tab) => {
                 const isActive = tab.id === activeScheme.id;
 
@@ -963,12 +932,12 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
           text: 'Focused on route efficiency, fast passenger movement, and everyday operational durability.',
         },
         {
-          image: busSafariSteel,
+          image: busSupportImage,
           title: 'Predator Supreme',
           text: 'A more premium interpretation of the platform with elevated comfort and stronger road presence.',
         },
         {
-          image: busRacingGreen,
+          image: busPredatorRed,
           title: 'Predator Identity',
           text: 'Distinctive front-end styling, practical body engineering, and a design language built for operators.',
         },
