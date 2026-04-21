@@ -14,8 +14,9 @@ import mercLogo from '../assets/Logos/merc-logo-1.png';
 import volvoLogo from '../assets/Logos/volvo-logo-1.png';
 import manLogo from '../assets/Logos/man-logo-1.png';
 import hinoLogo from '../assets/Logos/hino-logo-1.png';
-import oemStripLogo from '../assets/Logos/Busco-logos-4web-2.png';
+import oemStripLogo from '../assets/Logos/predator-logo-2.png';
 import redAccent from '../assets/Logos/red-accent.png';
+import { getPredatorBrandData, predatorBrandTabs } from '../data/predatorRangeData';
 
 const oemLogos = [
   { name: 'Scania', src: scaniaLogo, wide: false },
@@ -57,234 +58,10 @@ const colourTabs = [
   },
 ];
 
-const brandTabs = [
-  { id: 'hino', label: 'Hino' },
-  { id: 'predator', label: 'Predator' },
-  { id: 'mercedes', label: 'Mercedes' },
-  { id: 'volvo', label: 'Volvo' },
-  { id: 'man', label: 'MAN' },
-  { id: 'scania', label: 'Scania' },
-];
-
-// const rangeTabs = [
-//   { id: 'all', label: 'All' },
-//   { id: 'commuter', label: 'Commuter' },
-//   { id: 'supreme', label: 'Supreme' },
-// ];
-
-const busBrands = {
-  hino: {
-    title: 'Hino',
-    intro:
-      'A focused Hino range built for commuter demand, route efficiency, and premium regional movement.',
-    buses: [
-      {
-        id: 'hino-evo-3',
-        name: 'Hino EVO 3',
-        type: 'Predator Commuter',
-        category: 'commuter',
-        image: busArcticWhite,
-        blurb: 'A compact daily-route body designed for fast passenger movement and dependable city use.',
-        featureTitle: 'Best suited for',
-        featureText: 'Urban commuter routes, school transport and high-frequency municipal movement.',
-        specs: [
-          { label: 'Layout', value: 'Front entry / rapid flow' },
-          { label: 'Cabin', value: 'High-visibility driver zone' },
-          { label: 'Use Case', value: 'Daily commuter circulation' },
-          { label: 'Strength', value: 'Compact footprint' },
-        ],
-      },
-      {
-        id: 'hino-ray',
-        name: 'Hino RAY',
-        type: 'Predator Commuter',
-        category: 'commuter',
-        image: busPredatorRed,
-        blurb: 'A more versatile commuter body with improved route comfort and strong operational flexibility.',
-        featureTitle: 'What makes it unique',
-        featureText: 'Built to bridge short urban runs and longer regional movement.',
-        specs: [
-          { label: 'Layout', value: 'Balanced city / regional' },
-          { label: 'Cabin', value: 'Improved passenger flow' },
-          { label: 'Use Case', value: 'Mixed route operation' },
-          { label: 'Strength', value: 'Versatile body format' },
-        ],
-      },
-      {
-        id: 'hino-supreme',
-        name: 'Hino Supreme',
-        type: 'Predator Supreme',
-        category: 'supreme',
-        image: busSupportImage,
-        blurb: 'A premium route body with stronger road presence and longer-journey comfort.',
-        featureTitle: 'Best suited for',
-        featureText: 'Regional passenger routes, staff transport and premium fleet movement.',
-        specs: [
-          { label: 'Layout', value: 'Premium long-route body' },
-          { label: 'Cabin', value: 'Higher comfort emphasis' },
-          { label: 'Use Case', value: 'Regional movement' },
-          { label: 'Strength', value: 'Executive passenger appeal' },
-        ],
-      },
-        {
-        id: 'hino-predator',
-        name: 'Hino Predator',
-        type: 'Predator Supreme',
-        category: 'supreme',
-        image: busSupportImage,
-        blurb: 'A premium route body with stronger road presence and longer-journey comfort.',
-        featureTitle: 'Best suited for',
-        featureText: 'Regional passenger routes, staff transport and premium fleet movement.',
-        specs: [
-          { label: 'Layout', value: 'Premium long-route body' },
-          { label: 'Cabin', value: 'Higher comfort emphasis' },
-          { label: 'Use Case', value: 'Regional movement' },
-          { label: 'Strength', value: 'Executive passenger appeal' },
-        ],
-      },
-    ],
-  },
-
-  predator: {
-    title: 'Predator',
-    intro:
-      'The core Predator range balances durability, route efficiency and a recognisable road presence.',
-    buses: [
-      {
-        id: 'predator-core-1',
-        name: 'Predator Core',
-        type: 'Predator Commuter',
-        category: 'commuter',
-        image: busPredatorRed,
-        blurb: 'A durable everyday platform shaped for consistent route performance.',
-        featureTitle: 'Best suited for',
-        featureText: 'Fleet operators who need dependable daily passenger movement.',
-        specs: [
-          { label: 'Layout', value: 'Route-ready format' },
-          { label: 'Cabin', value: 'Balanced flow' },
-          { label: 'Use Case', value: 'Commuter operations' },
-          { label: 'Strength', value: 'Operational durability' },
-        ],
-      },
-      {
-        id: 'predator-supreme-1',
-        name: 'Predator Supreme',
-        type: 'Predator Supreme',
-        category: 'supreme',
-        image: busArcticWhite,
-        blurb: 'A refined version of the platform with a stronger premium passenger appeal.',
-        featureTitle: 'What makes it unique',
-        featureText: 'Adds a more elevated route experience while staying fleet-practical.',
-        specs: [
-          { label: 'Layout', value: 'Premium route profile' },
-          { label: 'Cabin', value: 'Comfort-led interior' },
-          { label: 'Use Case', value: 'Longer route service' },
-          { label: 'Strength', value: 'Premium perception' },
-        ],
-      },
-    ],
-  },
-
-  mercedes: {
-    title: 'Mercedes-Benz',
-    intro: 'Built around Mercedes platforms for premium feel, smooth operation and trusted route delivery.',
-    buses: [
-      {
-        id: 'merc-commuter',
-        name: 'Mercedes-Benz Commuter',
-        type: 'Predator Commuter',
-        category: 'commuter',
-        image: busPredatorRed,
-        blurb: 'A commuter-ready body designed for efficient passenger loading and daily route confidence.',
-        featureTitle: 'Best suited for',
-        featureText: 'Urban and regional operators who value premium OEM alignment.',
-        specs: [
-          { label: 'Layout', value: 'Efficient commuter body' },
-          { label: 'Cabin', value: 'Premium OEM integration' },
-          { label: 'Use Case', value: 'Daily route service' },
-          { label: 'Strength', value: 'Brand confidence' },
-        ],
-      },
-    ],
-  },
-
-  volvo: {
-    title: 'Volvo',
-    intro: 'Volvo-based bodies focused on comfort, operational confidence and longer-route presence.',
-    buses: [
-      {
-        id: 'volvo-supreme',
-        name: 'Volvo Supreme',
-        type: 'Predator Supreme',
-        category: 'supreme',
-        image: busSupportImage,
-        blurb: 'A premium route platform for operators focused on stability and long-distance comfort.',
-        featureTitle: 'Best suited for',
-        featureText: 'Higher-comfort passenger transport and premium route operations.',
-        specs: [
-          { label: 'Layout', value: 'Premium route body' },
-          { label: 'Cabin', value: 'Comfort-focused' },
-          { label: 'Use Case', value: 'Regional passenger travel' },
-          { label: 'Strength', value: 'Refined road presence' },
-        ],
-      },
-    ],
-  },
-
-  man: {
-    title: 'MAN',
-    intro: 'MAN-based Predator variants built for daily efficiency and adaptable route use.',
-    buses: [
-      {
-        id: 'man-evo',
-        name: 'MAN EVO',
-        type: 'Predator Commuter',
-        category: 'commuter',
-        image: busArcticWhite,
-        blurb: 'An adaptable commuter-focused body designed for efficient passenger movement.',
-        featureTitle: 'What makes it unique',
-        featureText: 'Pairs everyday practicality with a confident, modern bus profile.',
-        specs: [
-          { label: 'Layout', value: 'Efficient commuter body' },
-          { label: 'Cabin', value: 'Modern front-end feel' },
-          { label: 'Use Case', value: 'City movement' },
-          { label: 'Strength', value: 'Adaptable operation' },
-        ],
-      },
-    ],
-  },
-
-  scania: {
-    title: 'Scania',
-    intro: 'Scania Predator variants designed for robust operations and a more commanding fleet presence.',
-    buses: [
-      {
-        id: 'scania-supreme',
-        name: 'Scania Supreme',
-        type: 'Predator Supreme',
-        category: 'supreme',
-        image: busPredatorRed,
-        blurb: 'A higher-end configuration built for visibility, comfort and longer-haul passenger movement.',
-        featureTitle: 'Best suited for',
-        featureText: 'Operators wanting a flagship premium route body.',
-        specs: [
-          { label: 'Layout', value: 'Flagship premium body' },
-          { label: 'Cabin', value: 'Enhanced route comfort' },
-          { label: 'Use Case', value: 'Premium route fleets' },
-          { label: 'Strength', value: 'Commanding presence' },
-        ],
-      },
-    ],
-  },
-};
-
-
-
 export default function Home() {
   const [activeTab, setActiveTab] = useState(colourTabs[0].id);
 
   const [activeBrand, setActiveBrand] = useState('hino');
-const [rangeTab, setRangeTab] = useState('all');
 const [activeBusIndex, setActiveBusIndex] = useState(0);
   
 
@@ -296,13 +73,10 @@ const [activeBusIndex, setActiveBusIndex] = useState(0);
   const isArcticWhite = activeScheme.id === 'arctic-white';
   const approvalItems = ['NRCS Approved', 'SABS Certified', 'Homologated'];
 
-const activeBrandData = busBrands[activeBrand];
-const currentBrandBuses = activeBrandData.buses;
+const activeBrandData = getPredatorBrandData(activeBrand);
+const currentBrandBuses = activeBrandData.buses.slice(0, 4);
 
-const filteredBuses =
-  rangeTab === 'all'
-    ? currentBrandBuses
-    : currentBrandBuses.filter((bus) => bus.category === rangeTab);
+const filteredBuses = currentBrandBuses;
 
 const safeActiveIndex =
   activeBusIndex >= filteredBuses.length ? 0 : activeBusIndex;
@@ -311,11 +85,6 @@ const activeBus =
   filteredBuses[safeActiveIndex] || filteredBuses[0] || currentBrandBuses[0];
 
 const sideBuses = filteredBuses.filter((bus) => bus.id !== activeBus?.id);
-
-const selectBus = (busId) => {
-  const newIndex = filteredBuses.findIndex((bus) => bus.id === busId);
-  if (newIndex !== -1) setActiveBusIndex(newIndex);
-};
 
 const showPrevBus = () => {
   if (!filteredBuses.length) return;
@@ -370,32 +139,33 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
 
               <div className="flex flex-col items-start gap-2 lg:items-end">
               <div className="flex flex-col items-start gap-2 lg:items-end">
-                <a
-                  href="#/contact"
-                  className="inline-flex min-h-[40px] items-center justify-center rounded-md px-5 text-[10px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
-                  style={{ backgroundColor: '#d72626' }}
-                >
-                  Contact
-                </a>
+ <div className="flex items-start gap-2 lg:items-end mt-2">
+  <a
+    href="#/contact"
+    className="inline-flex min-h-[40px] items-center justify-center rounded-md px-5 text-[12px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
+    style={{ backgroundColor: '#d72626' }}
+  >
+    Contact
+  </a>
 
-
-<a
-  href="tel:0861114590"
-  className="inline-flex items-center gap-3 rounded-full border border-white/70 bg-white/95 px-4 py-2.5 text-[1.02rem] font-semibold tracking-[0.08em] text-[#111111] shadow-[0_12px_30px_rgba(0,0,0,0.10)] backdrop-blur-sm"
->
-  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d72626] text-white shadow-[0_6px_14px_rgba(215,38,38,0.35)]">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="h-4 w-4"
-      aria-hidden="true"
-    >
-      <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-1.09-.768-2.026-1.834-2.239l-4.423-.885a2.25 2.25 0 0 0-2.186.788l-.97 1.293a18.73 18.73 0 0 1-8.417-8.417l1.293-.97a2.25 2.25 0 0 0 .788-2.186l-.885-4.423A2.25 2.25 0 0 0 3.622 2.25H2.25A2.25 2.25 0 0 0 0 4.5v2.25h2.25Z" />
-    </svg>
-  </span>
-  <span>0861 114 590</span>
-</a>
+  <a
+    href="tel:0861114590"
+    className="inline-flex min-h-[40px] items-center gap-3 rounded-md border border-white/70 bg-white/95 px-4 text-[0.9rem] font-semibold tracking-[0.08em] text-[#111111] shadow-[0_12px_30px_rgba(0,0,0,0.10)] backdrop-blur-sm"
+  >
+    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d72626] text-white shadow-[0_6px_14px_rgba(215,38,38,0.35)]">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="h-4 w-4"
+        aria-hidden="true"
+      >
+        <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-1.09-.768-2.026-1.834-2.239l-4.423-.885a2.25 2.25 0 0 0-2.186.788l-.97 1.293a18.73 18.73 0 0 1-8.417-8.417l1.293-.97a2.25 2.25 0 0 0 .788-2.186l-.885-4.423A2.25 2.25 0 0 0 3.622 2.25H2.25A2.25 2.25 0 0 0 0 4.5v2.25h2.25Z" />
+      </svg>
+    </span>
+    <span>0861 114 590</span>
+  </a>
+</div>
 
 
 
@@ -1055,7 +825,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
       </div>
 
 <div className="mb-4 flex flex-wrap gap-3">
-  {brandTabs.map((tab) => {
+  {predatorBrandTabs.map((tab) => {
     const active = activeBrand === tab.id;
 
     return (
@@ -1064,7 +834,6 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
         type="button"
         onClick={() => {
           setActiveBrand(tab.id);
-          setRangeTab('all');
           setActiveBusIndex(0);
         }}
         className={`min-w-[118px] rounded-none border px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition ${
@@ -1136,7 +905,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),transparent_28%,rgba(0,0,0,0.58)_100%)]" />
 
             <a
-              href="#spec-quote"
+              href={`#/predator?brand=${activeBrand}&bus=${activeBus.id}`}
               className="absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-black shadow-[0_12px_24px_rgba(0,0,0,0.12)] transition hover:-translate-y-0.5"
             >
               <ArrowUpRight size={18} />
@@ -1192,15 +961,14 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
 
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-1">
         {sideBuses.map((bus, index) => (
-          <motion.button
+          <motion.a
             key={bus.id}
-            type="button"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55, delay: index * 0.08 }}
             whileHover={{ y: -6 }}
-            onClick={() => selectBus(bus.id)}
+            href={`#/predator?brand=${activeBrand}&bus=${bus.id}`}
             className="group overflow-hidden rounded-[28px] border border-black/8 bg-white/70 text-left shadow-[0_16px_50px_rgba(0,0,0,0.05)] backdrop-blur-sm"
           >
             <div className="relative h-[230px] overflow-hidden">
@@ -1224,7 +992,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
                 </h5>
               </div>
             </div>
-          </motion.button>
+          </motion.a>
         ))}
       </div>
     </div>

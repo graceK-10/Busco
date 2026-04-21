@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Predator from './pages/Predator';
 
 function App() {
   const getRoute = () => {
@@ -13,6 +14,10 @@ function App() {
 
     if (window.location.hash.startsWith('#/contact')) {
       return 'contact';
+    }
+
+    if (window.location.hash.startsWith('#/predator')) {
+      return 'predator';
     }
 
     return 'home';
@@ -34,6 +39,10 @@ function App() {
 
   if (route === 'contact') {
     return <Contact />;
+  }
+
+  if (route === 'predator') {
+    return <Predator />;
   }
 
   return <Home />;
