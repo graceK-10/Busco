@@ -1,14 +1,12 @@
 import { useMemo, useState } from 'react';
+/* eslint-disable no-unused-vars */
 import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Download } from 'lucide-react';
 
-import { ArrowUpRight, ChevronLeft, ChevronRight, Phone } from 'lucide-react';
-
-import buscoLogo from '../assets/Logos/busco-logo-1.png';
-import splitBackgroundVideo from '../assets/backgrounds/background4.mp4';
 import busArcticWhite from '../assets/Pictures/bus1.jpeg';
 import busPredatorRed from '../assets/Pictures/bus2.jpeg';
 import busSupportImage from '../assets/Pictures/bus3.jpeg';
-
+import splitBackgroundVideo from '../assets/backgrounds/background4.mp4';
 import scaniaLogo from '../assets/Logos/scania-logo-1.png';
 import mercLogo from '../assets/Logos/merc-logo-1.png';
 import volvoLogo from '../assets/Logos/volvo-logo-1.png';
@@ -16,6 +14,8 @@ import manLogo from '../assets/Logos/man-logo-1.png';
 import hinoLogo from '../assets/Logos/hino-logo-1.png';
 import oemStripLogo from '../assets/Logos/predator-logo-2.png';
 import redAccent from '../assets/Logos/red-accent.png';
+import SiteHeader from '../components/SiteHeader';
+import SiteFooter from '../components/SiteFooter';
 import { getPredatorBrandData, predatorBrandTabs } from '../data/predatorRangeData';
 
 const oemLogos = [
@@ -28,10 +28,10 @@ const oemLogos = [
 ];
 
 const navItems = [
+  { label: 'Home', href: '#/' },
   { label: 'About', href: '#/about' },
-  { label: 'Range', href: '#range' },
-  { label: 'Predator', href: '#predator' },
-  { label: 'Contact', href: '#/contact' },
+  { label: 'Our Range', href: '#/predator' },
+  { label: 'Gallery', href: '#gallery' },
   { label: 'Spec & Quote', href: '#spec-quote' },
 ];
 
@@ -60,49 +60,34 @@ const colourTabs = [
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(colourTabs[0].id);
-
-  const [activeBrand, setActiveBrand] = useState('hino');
-const [activeBusIndex, setActiveBusIndex] = useState(0);
-  
+  const [activeBrand, setActiveBrand] = useState(predatorBrandTabs[0].id);
+  const [activeBusIndex, setActiveBusIndex] = useState(0);
 
   const activeScheme = useMemo(
     () => colourTabs.find((tab) => tab.id === activeTab) ?? colourTabs[0],
     [activeTab]
   );
+  const activeBrandData = useMemo(() => getPredatorBrandData(activeBrand), [activeBrand]);
+  const brandBuses = activeBrandData.buses;
+  const safeBusIndex = brandBuses.length === 0 ? 0 : ((activeBusIndex % brandBuses.length) + brandBuses.length) % brandBuses.length;
+  const activeBus = brandBuses[safeBusIndex] ?? brandBuses[0];
+  const sideBuses = brandBuses.filter((_, index) => index !== safeBusIndex).slice(0, 2);
 
   const isArcticWhite = activeScheme.id === 'arctic-white';
   const approvalItems = ['NRCS Approved', 'SABS Certified', 'Homologated'];
+  const brochureButtonClass = 'inline-flex items-center gap-2 rounded-full bg-[#d72626] px-4 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition hover:brightness-110';
 
-const activeBrandData = getPredatorBrandData(activeBrand);
-const currentBrandBuses = activeBrandData.buses.slice(0, 4);
+  const showPrevBus = () => {
+    if (brandBuses.length === 0) return;
+    setActiveBusIndex((current) => (current - 1 + brandBuses.length) % brandBuses.length);
+  };
 
-const filteredBuses = currentBrandBuses;
+  const showNextBus = () => {
+    if (brandBuses.length === 0) return;
+    setActiveBusIndex((current) => (current + 1) % brandBuses.length);
+  };
 
-const safeActiveIndex =
-  activeBusIndex >= filteredBuses.length ? 0 : activeBusIndex;
-
-const activeBus =
-  filteredBuses[safeActiveIndex] || filteredBuses[0] || currentBrandBuses[0];
-
-const sideBuses = filteredBuses.filter((bus) => bus.id !== activeBus?.id);
-
-const showPrevBus = () => {
-  if (!filteredBuses.length) return;
-  setActiveBusIndex((prev) =>
-    prev === 0 ? filteredBuses.length - 1 : prev - 1
-  );
-};
-
-const showNextBus = () => {
-  if (!filteredBuses.length) return;
-  setActiveBusIndex((prev) =>
-    prev === filteredBuses.length - 1 ? 0 : prev + 1
-  );
-};
-
-
-
-return (
+  return (
   <div
     className="min-h-screen bg-[#f4f1ea] text-[#111111] dark:bg-[#0b0b0d] dark:text-white"
     style={{
@@ -111,68 +96,8 @@ return (
     }}
   >
     <main className="w-full overflow-hidden bg-[#f4f1ea] dark:bg-[#111214]">
-        <section
-          id="home"
-className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 2xl:min-h-[720px]"
-        >
-          <div className="border-b border-white/10 bg-[#f4f1ea] px-4 py-2 sm:px-6 lg:px-8">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex items-center gap-4">
-                <img
-                  src={buscoLogo}
-                  alt="BUSCO logo"
-                  className="h-16 w-auto object-contain sm:h-16"
-                />
-              </div>
-
-              <nav className="flex flex-wrap items-center gap-5 text-[13px] font-semibold uppercase tracking-[0.32em] text-red-600">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="transition hover:text-black"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
-
-              <div className="flex flex-col items-start gap-2 lg:items-end">
-              <div className="flex flex-col items-start gap-2 lg:items-end">
- <div className="flex items-start gap-2 lg:items-end mt-2">
-  <a
-    href="#/contact"
-    className="inline-flex min-h-[40px] items-center justify-center rounded-md px-5 text-[12px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
-    style={{ backgroundColor: '#d72626' }}
-  >
-    Contact
-  </a>
-
-  <a
-    href="tel:0861114590"
-    className="inline-flex min-h-[40px] items-center gap-3 rounded-md border border-white/70 bg-white/95 px-4 text-[0.9rem] font-semibold tracking-[0.08em] text-[#111111] shadow-[0_12px_30px_rgba(0,0,0,0.10)] backdrop-blur-sm"
-  >
-    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d72626] text-white shadow-[0_6px_14px_rgba(215,38,38,0.35)]">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="h-4 w-4"
-        aria-hidden="true"
-      >
-        <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-1.09-.768-2.026-1.834-2.239l-4.423-.885a2.25 2.25 0 0 0-2.186.788l-.97 1.293a18.73 18.73 0 0 1-8.417-8.417l1.293-.97a2.25 2.25 0 0 0 .788-2.186l-.885-4.423A2.25 2.25 0 0 0 3.622 2.25H2.25A2.25 2.25 0 0 0 0 4.5v2.25h2.25Z" />
-      </svg>
-    </span>
-    <span>0861 114 590</span>
-  </a>
-</div>
-
-
-
-              </div>
-              </div>
-            </div>
-          </div>
+        <section id="home" className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 2xl:min-h-[720px]">
+          <SiteHeader navItems={navItems} />
 
           <div className="border-b border-white/10 bg-[#f4f1ea]/20 px-4 py-2 sm:px-6 lg:px-8">
             <div className="grid gap-3 xl:grid-cols-2">
@@ -264,7 +189,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
 
                 <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
                   <a
-                    href="#range"
+                    href="#/predator"
                     className="inline-flex min-h-[46px] items-center justify-center rounded-md px-6 text-[10px] font-bold uppercase tracking-[0.22em] transition hover:translate-x-0.5"
                     style={{
                       backgroundColor: isArcticWhite ? '#d72626' : '#ffffff',
@@ -390,7 +315,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
       >
 <div className="max-w-[980px] leading-none">
   <h2 className="text-[clamp(2rem,4vw,4rem)] font-black tracking-[-0.055em] text-[#d72626]">
-    Built for Africa.
+    Welcome to Busafrica – Busco
   </h2>
 
   <div
@@ -402,17 +327,32 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
         '1px 1px 0 #d72626, 2px 2px 0 rgba(215,38,38,0.85), 3px 3px 0 rgba(0,0,0,0.18), 0 10px 0 rgba(0,0,0,0.14), 0 18px 28px rgba(0,0,0,0.32)',
     }}
   >
-    Engineered for trust.
+    People Carriers built with Pride and Passion
   </div>
 </div>
 
-        <p className="mt-8 max-w-[760px] text-[1.08rem] leading-8 text-black/68 sm:text-[1.12rem]">
-          <span className="font-semibold text-black">Busco Marketing</span> is the sales &amp;
-          marketing division of <span className="font-semibold text-black">Busafrica</span> —
-          South Africa&apos;s premier manufacturer and supplier of NRCS/SABS approved, fully
-          homologated bus bodywork. Since 1996 we have delivered peace of mind products with
-          outstanding quality at value for money — built for Africa, trusted across the continent.
-        </p>
+<div className="mt-8 max-w-[760px] space-y-6 text-[1.08rem] leading-8 text-black/68 sm:text-[1.12rem]">
+  <p>
+    <span className="font-semibold text-black">Busco Marketing</span> is the sales
+    &amp; marketing division of{" "}
+    <span className="font-semibold text-black">Busafrica</span> and offers a
+    comprehensive range of passenger buses designed to meet diverse operational
+    needs and applications. Our focus is on delivering high-quality, reliable
+    solutions that provide peace of mind and exceptional value for money.
+  </p>
+
+  <p>
+    At Busco / Busafrica, our mission is to exceed customer expectations through
+    outstanding service, supported by in-depth product knowledge and decades of
+    experience in the passenger transport industry.
+  </p>
+
+  <p>
+    Busco / Busafrica is an officially approved supplier and homologated bus
+    bodywork manufacturer for leading OEM brands, including Scania,
+    Mercedes-Benz, Volkswagen-MAN, Volvo, and Hino Trucks.
+  </p>
+</div>
       </motion.div>
 
       <motion.div
@@ -703,10 +643,10 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="#range"
+                href="#/predator"
                 className="inline-flex items-center rounded-none bg-[#ff2323] px-6 py-4 text-[11px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
               >
-                Explore Predator →
+                Explore Our Range →
               </a>
               <a
                 href="#spec-quote"
@@ -774,239 +714,10 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
 
 {/* PREDATOR SECTION END */}
 
-{/* RANGE SECTION START */}
-<section
-  id="range"
-  className="relative overflow-hidden border-t border-black/5 bg-[#f4f1ea] px-6 py-16 text-[#111111] sm:px-10 lg:px-16 lg:py-24"
->
-  <div className="pointer-events-none absolute inset-0">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(215,38,38,0.75),transparent_48%)]" />
-    <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,17,17,0.03)_1px,transparent_1px),linear-gradient(180deg,rgba(17,17,17,0.03)_1px,transparent_1px)] bg-[size:140px_140px] opacity-[0.22]" />
-    <div className="absolute left-0 top-0 h-[280px] w-[280px] rounded-full bg-[#d72626]/10 blur-3xl" />
-    <div className="absolute bottom-0 right-0 h-[260px] w-[260px] rounded-full bg-[#234d8f]/8 blur-3xl" />
-  </div>
-
-  <div className="relative z-10 mx-auto max-w-[1580px]">
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="mb-10 flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between"
-    >
-      <div>
-        <div className="mb-6 flex items-center gap-4">
-          <span className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#d72626]">
-            02
-          </span>
-          <span className="h-px w-12 bg-black/10" />
-          <span className="text-[12px] font-semibold uppercase tracking-[0.28em] text-black/55">
-            The Range
-          </span>
-        </div>
-
-        <div className="max-w-[980px] leading-none">
-          <h2 className="text-[clamp(2rem,4vw,4rem)] font-black tracking-[-0.055em] text-[#111111]">
-            The <span className="text-[#d72626]">Predator</span>
-          </h2>
-
-          <div
-            className="mt-1 text-[clamp(2rem,4vw,4rem)] font-black tracking-[-0.06em]"
-            style={{
-              color: '#ffffff',
-              WebkitTextStroke: '1.5px #d72626',
-              textShadow:
-                '1px 1px 0 #d72626, 2px 2px 0 rgba(215,38,38,0.85), 3px 3px 0 rgba(0,0,0,0.18), 0 10px 0 rgba(0,0,0,0.14), 0 18px 28px rgba(0,0,0,0.32)',
-            }}
-          >
-            Range
-          </div>
-        </div>
-      </div>
-
-<div className="mb-4 flex flex-wrap gap-3">
-  {predatorBrandTabs.map((tab) => {
-    const active = activeBrand === tab.id;
-
-    return (
-      <button
-        key={tab.id}
-        type="button"
-        onClick={() => {
-          setActiveBrand(tab.id);
-          setActiveBusIndex(0);
-        }}
-        className={`min-w-[118px] rounded-none border px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition ${
-          active
-            ? 'border-[#111111] bg-[#111111] text-white'
-            : 'border-black/15 bg-white/50 text-black/60 hover:border-black/25 hover:text-black'
-        }`}
-      >
-        {tab.label}
-      </button>
-    );
-  })}
-</div>
-    </motion.div>
-
-    <motion.div
-      initial={{ opacity: 0, y: 34 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
-    >
-      <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-black/45">
-          Brand
-        </p>
-<h3 className="mt-2 text-[clamp(2rem,4vw,3.1rem)] font-black tracking-[-0.04em] text-[#111111]">
-  {activeBrandData.title}
-</h3>
-<p className="mt-3 max-w-[620px] text-[1rem] leading-7 text-black/62">
-  {activeBrandData.intro}
-</p>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={showPrevBus}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white/70 text-black transition hover:-translate-y-0.5 hover:border-black/20"
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <button
-          type="button"
-          onClick={showNextBus}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white/70 text-black transition hover:-translate-y-0.5 hover:border-black/20"
-        >
-          <ChevronRight size={18} />
-        </button>
-      </div>
-    </motion.div>
-
-    <div className="grid gap-5 xl:grid-cols-[minmax(0,1.18fr)_420px]">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeBus.id}
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -16 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="overflow-hidden rounded-[34px] border border-black/8 bg-white/70 shadow-[0_22px_65px_rgba(0,0,0,0.06)] backdrop-blur-sm"
-        >
-          <div className="relative h-[340px] overflow-hidden sm:h-[420px]">
-            <img
-              src={activeBus.image}
-              alt={activeBus.name}
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),transparent_28%,rgba(0,0,0,0.58)_100%)]" />
-
-            <a
-              href={`#/predator?brand=${activeBrand}&bus=${activeBus.id}`}
-              className="absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-black shadow-[0_12px_24px_rgba(0,0,0,0.12)] transition hover:-translate-y-0.5"
-            >
-              <ArrowUpRight size={18} />
-            </a>
-
-            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-<p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#ff6a6a]">
-  {activeBus.type}
-</p>
-<h4 className="mt-2 text-[clamp(2rem,4vw,3rem)] font-black tracking-[-0.04em] text-white">
-  {activeBus.name}
-</h4>
-            </div>
-          </div>
-
-          <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_300px]">
-            <div>
-<p className="max-w-[720px] text-[1.02rem] leading-8 text-black/66">
-  {activeBus.blurb}
-</p>
-
-<div className="mt-6 grid gap-4 sm:grid-cols-2">
-  {activeBus.specs.map((spec) => (
-                  <div
-                    key={spec.label}
-                    className="rounded-[22px] border border-black/8 bg-black/[0.02] px-5 py-5"
-                  >
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-black/42">
-                      {spec.label}
-                    </p>
-                    <p className="mt-2 text-[1rem] font-semibold leading-7 text-[#111111]">
-                      {spec.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-[26px] border border-black/8 bg-[#111111] p-6 text-white">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/45">
-                Bus insight
-              </p>
-<h5 className="mt-4 text-[1.2rem] font-semibold leading-7">
-  {activeBus.featureTitle}
-</h5>
-<p className="mt-4 text-[0.98rem] leading-7 text-white/68">
-  {activeBus.featureText}
-</p>
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-
-      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-1">
-        {sideBuses.map((bus, index) => (
-          <motion.a
-            key={bus.id}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: index * 0.08 }}
-            whileHover={{ y: -6 }}
-            href={`#/predator?brand=${activeBrand}&bus=${bus.id}`}
-            className="group overflow-hidden rounded-[28px] border border-black/8 bg-white/70 text-left shadow-[0_16px_50px_rgba(0,0,0,0.05)] backdrop-blur-sm"
-          >
-            <div className="relative h-[230px] overflow-hidden">
-              <img
-                src={bus.image}
-                alt={bus.name}
-                className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),transparent_25%,rgba(0,0,0,0.56)_100%)]" />
-
-              <div className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-black shadow-[0_12px_24px_rgba(0,0,0,0.12)] transition duration-300 group-hover:-translate-y-0.5">
-                <ArrowUpRight size={18} />
-              </div>
-
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#ff6a6a]">
-                  {bus.type}
-                </p>
-                <h5 className="mt-2 text-[1.8rem] font-black tracking-[-0.04em] text-white">
-                  {bus.name}
-                </h5>
-              </div>
-            </div>
-          </motion.a>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
-
-{/* RANGE SECTION END */}
 
 
-        <section
-          id="spec-quote"
-          className="border-t border-white/10 px-6 py-16 text-white/75 sm:px-10 lg:px-16"
-        >
-          <p className="text-sm uppercase tracking-[0.3em]">Spec &amp; Quote</p>
+        <section id="spec-quote" className="border-t border-black/5 bg-[#f8f5ef] px-6 py-16 text-black/60 sm:px-10 lg:px-16">
+          <p className="text-sm uppercase tracking-[0.3em] text-[#d72626]">Spec &amp; Quote</p>
         </section>
 
         <section
@@ -1015,6 +726,7 @@ className="relative flex min-h-[300px] flex-col overflow-hidden lg:min-h-[74vh] 
         >
           <p className="text-sm uppercase tracking-[0.3em]">Contact</p>
         </section>
+        <SiteFooter />
       </main>
     </div>
   );

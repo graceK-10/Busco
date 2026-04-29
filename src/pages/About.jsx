@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 
 import buscoLogo from '../assets/Logos/busco-logo-1.png';
@@ -8,6 +9,8 @@ import teamBus from '../assets/Pictures/bus4.jpeg';
 import lloydImage from '../assets/team/lloyd.jpg';
 import markImage from '../assets/team/mark.jpg';
 import willieImage from '../assets/team/willie.jpg';
+import SiteHeader from '../components/SiteHeader';
+import SiteFooter from '../components/SiteFooter';
 
 const managers = [
   {
@@ -41,9 +44,8 @@ const aboutParagraphs = [
 const navItems = [
   { label: 'Home', href: '#/' },
   { label: 'About', href: '#/about' },
-  { label: 'Contact', href: '#/contact' },
-  { label: 'Range', href: '#/range' },
-  { label: 'Predator', href: '#/predator' },
+  { label: 'Our Range', href: '#/predator' },
+  { label: 'Gallery', href: '#gallery' },
   { label: 'Spec & Quote', href: '#/spec-quote' },
 ];
 
@@ -57,48 +59,7 @@ export default function About() {
       }}
     >
       <main className="w-full overflow-hidden bg-[#f4f1ea]">
-        <section className="relative overflow-hidden border-b border-black/5 px-4 py-2 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <img src={buscoLogo} alt="BUSCO logo" className="h-16 w-auto object-contain sm:h-16" />
-
-            <nav className="flex flex-wrap items-center gap-5 text-[13px] font-semibold uppercase tracking-[0.32em] text-red-600">
-              {navItems.map((item) => (
-                <a key={item.label} href={item.href} className="transition hover:text-black">
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-
-            <div className="flex flex-col items-start gap-2 lg:items-end">
-              <a
-                href="#/contact"
-                className="inline-flex min-h-[40px] items-center justify-center rounded-md px-5 text-[10px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
-                style={{ backgroundColor: '#d72626' }}
-              >
-                Contact
-              </a>
-
-<a
-  href="tel:0861114590"
-  className="inline-flex items-center gap-3 rounded-full border border-white/70 bg-white/95 px-4 py-2.5 text-[1.02rem] font-semibold tracking-[0.08em] text-[#111111] shadow-[0_12px_30px_rgba(0,0,0,0.10)] backdrop-blur-sm"
->
-  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d72626] text-white shadow-[0_6px_14px_rgba(215,38,38,0.35)]">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="h-4 w-4"
-      aria-hidden="true"
-    >
-      <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-1.09-.768-2.026-1.834-2.239l-4.423-.885a2.25 2.25 0 0 0-2.186.788l-.97 1.293a18.73 18.73 0 0 1-8.417-8.417l1.293-.97a2.25 2.25 0 0 0 .788-2.186l-.885-4.423A2.25 2.25 0 0 0 3.622 2.25H2.25A2.25 2.25 0 0 0 0 4.5v2.25h2.25Z" />
-    </svg>
-  </span>
-  <span>0861 114 590</span>
-</a>
-
-            </div>
-          </div>
-        </section>
+        <SiteHeader navItems={navItems} />
 
         <section className="relative overflow-hidden px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
           <div className="pointer-events-none absolute inset-0">
@@ -316,6 +277,7 @@ export default function About() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </div>
   );
 }
