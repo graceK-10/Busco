@@ -14,6 +14,8 @@ import manLogo from '../assets/Logos/man-logo-1.png';
 import hinoLogo from '../assets/Logos/hino-logo-1.png';
 import oemStripLogo from '../assets/Logos/predator-logo-2.png';
 import redAccent from '../assets/Logos/red-accent.png';
+import redAccent2 from '../assets/Logos/red-accent-4.png'
+import redAccent3 from '../assets/Logos/red-accent-5.png'
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 import { getPredatorBrandData, predatorBrandTabs } from '../data/predatorRangeData';
@@ -508,27 +510,19 @@ export default function Home() {
   </style>
   <div className="pointer-events-none absolute bottom-0 right-0 z-10">
   <img
-    src={redAccent}
+    src={redAccent2}
     alt=""
-    className="w-[180px] sm:w-[240px] lg:w-[450px] opacity-95"
+    className="w-[180px] sm:w-[240px] lg:w-[200px] opacity-95"
   />
 </div>
 
 <div className="pointer-events-none absolute left-0 top-0 z-10">
   <img
-    src={redAccent}
+    src={redAccent3}
     alt=""
-    className="w-[120px] rotate-180 sm:w-[160px] lg:w-[350px] opacity-90"
+    className="w-[120px] sm:w-[160px] lg:w-[200px] opacity-90"
   />
 </div>
-
-{/* <div className="pointer-events-none absolute right-0 top-0 z-10">
-  <img
-    src={redAccent}
-    alt=""
-    className="w-[120px] rotate-180 sm:w-[160px] lg:w-[220px] opacity-90"
-  />
-</div> */}
 </section>
 {/* ABOUT SECTION END */}
 
@@ -716,16 +710,122 @@ export default function Home() {
 
 
 
-        <section id="spec-quote" className="border-t border-black/5 bg-[#f8f5ef] px-6 py-16 text-black/60 sm:px-10 lg:px-16">
+        {/* <section id="spec-quote" className="border-t border-black/5 bg-[#f8f5ef] px-6 py-16 text-black/60 sm:px-10 lg:px-16">
           <p className="text-sm uppercase tracking-[0.3em] text-[#d72626]">Spec &amp; Quote</p>
-        </section>
+        </section> */}
 
-        <section
-          id="contact"
-          className="border-t border-white/10 px-6 py-16 text-white/75 sm:px-10 lg:px-16"
+{/* CONTACT US SECTION START */}
+<section
+  id="contact"
+  className="relative border-t border-black/5 bg-[#f1efec] px-6 py-16 text-[#111111] sm:px-10 lg:px-16 lg:py-20"
+>
+  <div className="mx-auto grid max-w-[1580px] gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+    {/* SMALL MAP */}
+    <motion.div
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.65 }}
+      className="overflow-hidden rounded-[32px] border border-black/8 bg-white/70 shadow-[0_20px_60px_rgba(0,0,0,0.07)]"
+    >
+      <iframe
+        title="Busco Marketing Map"
+        src="https://www.google.com/maps?q=25%C2%B059'54.%2028%C2%B026'47%20ext,%201,%20249%20Rembrandt%20St,%20Nestpark%20AH,%20Bapsfontein,%201510,%20South%20Africa&z=15&output=embed"
+        className="h-[300px] w-full border-0 lg:h-full"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen
+      />
+    </motion.div>
+
+    {/* CONTACT CARD */}
+    <motion.div
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.65, delay: 0.06 }}
+      className="rounded-[32px] border border-black/8 bg-white/75 p-7 shadow-[0_20px_60px_rgba(0,0,0,0.06)] sm:p-9"
+    >
+      <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#d72626]">
+        Contact Busco
+      </p>
+
+      <h2 className="mt-4 text-[clamp(2rem,4vw,3.8rem)] font-black uppercase leading-[0.9] tracking-[-0.06em] text-[#111111]">
+        Let&apos;s start the
+        <span
+          className="block"
+          style={{
+            color: '#ffffff',
+            WebkitTextStroke: '1.5px #d72626',
+            textShadow:
+              '1px 1px 0 #d72626, 2px 2px 0 rgba(215,38,38,0.85), 3px 3px 0 rgba(0,0,0,0.18), 0 10px 0 rgba(0,0,0,0.14), 0 18px 28px rgba(0,0,0,0.32)',
+          }}
         >
-          <p className="text-sm uppercase tracking-[0.3em]">Contact</p>
-        </section>
+          conversation
+        </span>
+      </h2>
+
+      <div className="mt-7 grid gap-5 md:grid-cols-2">
+        <div>
+          <h3 className="text-[1.2rem] font-black tracking-[-0.04em] text-[#d72626]">
+            Address
+          </h3>
+          <div className="mt-2 text-[0.98rem] leading-7 text-black/68">
+            <p>249 Rembrandt Street</p>
+            <p>Nestpark Ext 1, Bapsfontein</p>
+            <p>Gauteng, South Africa</p>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-[1.2rem] font-black tracking-[-0.04em] text-[#d72626]">
+            Contact
+          </h3>
+          <div className="mt-2 space-y-2 text-[0.98rem] leading-7 text-black/68">
+            <p>
+              <span className="font-semibold text-[#111111]">Tel:</span>{' '}
+              <a href="tel:0861114590" className="hover:text-[#d72626]">
+                0861 114 590
+              </a>
+            </p>
+            <p>
+              <span className="font-semibold text-[#111111]">Alt:</span>{' '}
+              <a href="tel:0119641182" className="hover:text-[#d72626]">
+                011 964 1182
+              </a>
+            </p>
+            <p>
+              <span className="font-semibold text-[#111111]">Email:</span>{' '}
+              <a href="mailto:parts@busco.co.za" className="text-[#d72626] hover:underline">
+                parts@busco.co.za
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a
+          href="#/contact"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-md bg-[#d72626] px-7 text-[10px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
+        >
+          Contact Us
+        </a>
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=249+Rembrandt+Street+Nestpark+AH+Bapsfontein+1510+South+Africa"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-md border border-black/15 px-7 text-[10px] font-bold uppercase tracking-[0.24em] text-[#111111] transition hover:border-[#d72626] hover:text-[#d72626]"
+        >
+          Open Map
+        </a>
+      </div>
+    </motion.div>
+  </div>
+</section>
+{/* CONTACT US SECTION END */}
+
         <SiteFooter />
       </main>
     </div>
