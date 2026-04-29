@@ -16,8 +16,8 @@ export default function SiteHeader({
 }) {
   return (
     <section className={`relative overflow-hidden border-b border-black/5 px-4 py-2 sm:px-6 lg:px-8 ${backgroundClassName}`}>
-      <div className="grid gap-4 lg:grid-cols-[auto_1fr_auto] lg:items-center">
-        <img src={buscoLogo} alt="BUSCO logo" className="h-16 w-auto object-contain sm:h-16" />
+      <div className="mx-auto grid max-w-[1580px] gap-4 lg:grid-cols-[auto_1fr_auto] lg:items-center">
+        <img src={buscoLogo} alt="BUSCO logo" className="mx-auto h-16 w-auto object-contain sm:h-16 lg:mx-0" />
 
         <nav className={`flex flex-wrap items-center justify-center gap-5 lg:pl-10 text-[13px] font-semibold uppercase tracking-[0.32em] ${navTextClassName}`}>
           {navItems.map((item) => (
@@ -27,7 +27,7 @@ export default function SiteHeader({
           ))}
         </nav>
 
-        <div className="mt-2 flex items-start gap-2 lg:justify-end lg:items-end">
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-2 lg:justify-end">
           <a
             href={contactHref}
             className="inline-flex min-h-[40px] items-center justify-center rounded-md px-5 text-[12px] font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"

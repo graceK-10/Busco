@@ -45,7 +45,7 @@ const navItems = [
   { label: 'Home', href: '#/' },
   { label: 'About', href: '#/about' },
   { label: 'Our Range', href: '#/predator' },
-  { label: 'Gallery', href: '#gallery' },
+  { label: 'Gallery', href: '#/gallery' },
   { label: 'Spec & Quote', href: '#/spec-quote' },
 ];
 
