@@ -1,8 +1,6 @@
 import { useState } from 'react';
 /* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
-import buscoLogo from '../assets/Logos/busco-logo-1.png';
-// import redAccent from '../assets/Logos/red-accent.png';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 
@@ -21,14 +19,20 @@ const contactPeople = [
     email: 'mark@busco.co.za',
   },
   {
-    name: 'Lloyd Baldwin',
-    phone: '082 444 9766',
-    email: 'parts@busco.co.za',
-  },
-  {
     name: 'Willie van Zyl',
     phone: '082 551 1056',
     email: 'willie@busco.co.za',
+  },
+  {
+    name: 'Lloyd Baldwin',
+    phone: '082 444 9766',
+    email: 'lloyd@busco.co.za',
+  },
+  {
+    name: 'Jay Jonker',
+    role: 'Parts sales',
+    phone: '067 303 3487',
+    email: 'support@busco.co.za',
   },
 ];
 
@@ -40,7 +44,7 @@ export default function Contact() {
     message: '',
   });
 
-  const mailtoHref = `mailto:parts@busco.co.za?subject=${encodeURIComponent(
+  const mailtoHref = `mailto:lloyd@busco.co.za?subject=${encodeURIComponent(
     `Busco website enquiry from ${form.name || 'Website Visitor'}`
   )}&body=${encodeURIComponent(
     `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nMessage:\n${form.message}`
@@ -73,19 +77,20 @@ export default function Contact() {
               <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#d72626]">
                 Contact Busco
               </p>
+
               <h1 className="mt-4 text-[clamp(2.6rem,6vw,5rem)] font-black uppercase leading-[0.9] tracking-[-0.06em] text-[#111111]">
                 Let&apos;s start the
-<span
-  className="block"
-  style={{
-    color: "#ffffff",
-    WebkitTextStroke: "1.5px #d72626",
-    textShadow:
-      "1px 1px 0 #d72626, 2px 2px 0 rgba(215,38,38,0.85), 3px 3px 0 rgba(0,0,0,0.18), 0 10px 0 rgba(0,0,0,0.14), 0 18px 28px rgba(0,0,0,0.32)",
-  }}
->
-  conversation
-</span>
+                <span
+                  className="block"
+                  style={{
+                    color: '#ffffff',
+                    WebkitTextStroke: '1.5px #d72626',
+                    textShadow:
+                      '1px 1px 0 #d72626, 2px 2px 0 rgba(215,38,38,0.85), 3px 3px 0 rgba(0,0,0,0.18), 0 10px 0 rgba(0,0,0,0.14), 0 18px 28px rgba(0,0,0,0.32)',
+                  }}
+                >
+                  conversation
+                </span>
               </h1>
             </motion.div>
 
@@ -103,10 +108,6 @@ export default function Contact() {
         </section>
 
         <section className="relative px-6 pb-20 sm:px-10 lg:px-16 lg:pb-24">
-          {/* <div className="pointer-events-none absolute right-0 top-0 z-10">
-            <img src={redAccent} alt="" className="w-[140px] opacity-90 sm:w-[200px]" />
-          </div> */}
-
           <div className="relative z-10 mx-auto grid max-w-[1580px] gap-8 xl:grid-cols-[420px_minmax(0,1fr)] xl:items-start">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -115,7 +116,10 @@ export default function Contact() {
               transition={{ duration: 0.6 }}
               className="rounded-[30px] border border-black/8 bg-white/75 p-7 shadow-[0_18px_50px_rgba(0,0,0,0.06)] sm:p-8"
             >
-              <h2 className="text-[1.5rem] font-black tracking-[-0.04em] text-[#d72626]">Address</h2>
+              <h2 className="text-[1.5rem] font-black tracking-[-0.04em] text-[#d72626]">
+                Address
+              </h2>
+
               <div className="mt-2 space-y-1 text-[1rem] leading-8 text-black/72">
                 <p>249 Rembrandt street</p>
                 <p>Nestpark Ext 1,</p>
@@ -123,7 +127,7 @@ export default function Contact() {
                 <p>South Africa</p>
               </div>
 
-              <h3 className="text-[1.5rem] font-black tracking-[-0.04em] text-[#d72626] mt-5">
+              <h3 className="mt-5 text-[1.5rem] font-black tracking-[-0.04em] text-[#d72626]">
                 Contact Us
               </h3>
 
@@ -131,8 +135,11 @@ export default function Contact() {
                 {contactPeople.map((person) => (
                   <div key={person.email}>
                     <p className="font-semibold text-[#111111]">
-                      {person.name} - {person.phone}
+                      {person.role
+                        ? `${person.role} - ${person.name} - ${person.phone}`
+                        : `${person.name} - ${person.phone}`}
                     </p>
+
                     <a href={`mailto:${person.email}`} className="text-[#d72626] hover:underline">
                       {person.email}
                     </a>
@@ -140,8 +147,9 @@ export default function Contact() {
                 ))}
 
                 <div>
-                  <p className="font-semibold text-[#111111]">Telephone - 0861114590 / 011 964 1182</p>
-                  <p>Fax no - 011 964 1189</p>
+                  <p className="font-semibold text-[#111111]">
+                    Telephone - 0861114590 / 011 964 1182
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -164,6 +172,7 @@ export default function Contact() {
                   onChange={handleChange}
                   className="min-h-[58px] border border-black/20 bg-transparent px-4 text-[1rem] outline-none transition focus:border-[#d72626]"
                 />
+
                 <input
                   type="email"
                   name="email"
@@ -172,6 +181,7 @@ export default function Contact() {
                   onChange={handleChange}
                   className="min-h-[58px] border border-black/20 bg-transparent px-4 text-[1rem] outline-none transition focus:border-[#d72626]"
                 />
+
                 <input
                   type="text"
                   name="phone"
@@ -194,7 +204,7 @@ export default function Contact() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm leading-6 text-black/55">
                   Submit opens your default email app with your enquiry addressed to{' '}
-                  <span className="font-semibold text-[#111111]">parts@busco.co.za</span>.
+                  <span className="font-semibold text-[#111111]">lloyd@busco.co.za</span>.
                 </p>
 
                 <button
@@ -208,6 +218,7 @@ export default function Contact() {
           </div>
         </section>
       </main>
+
       <SiteFooter />
     </div>
   );

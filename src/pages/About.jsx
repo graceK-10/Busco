@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 import buscoLogo from '../assets/Logos/busco-logo-1.png';
 import redAccent from '../assets/Logos/red-accent.png';
+import redAccent2 from '../assets/Logos/red-accent-4.png'
 import heroBus from '../assets/Pictures/bus1.jpeg';
 import supportBus from '../assets/Pictures/bus3.jpeg';
 import teamBus from '../assets/Pictures/bus4.jpeg';
@@ -13,12 +14,6 @@ import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 
 const managers = [
-  {
-    name: 'Lloyd Baldwin',
-    role: 'Transport Consultant',
-    email: 'parts@busco.co.za',
-    image: lloydImage,
-  },
   {
     name: 'Mark Tiedemann',
     role: 'Member',
@@ -31,14 +26,26 @@ const managers = [
     email: 'willie@busco.co.za',
     image: willieImage,
   },
+  {
+    name: 'Lloyd Baldwin',
+    role: 'Transport Consultant',
+    email: 'parts@busco.co.za',
+    image: lloydImage,
+  },
 ];
 
 const aboutParagraphs = [
-  'Busco Marketing was established by a team of well known bus experts to further improve the demands of the bus passenger industry. Busco Marketing has become a respected name in the supply chain of passenger buses. Busco/Busafrica has a team of seasoned bus experts that work very closely with all the bus chassis manufacturers (OEMs) namely: Scania, Mercedes-Benz, VolksWagen M.A.N., Volvo, VDL DAF, Iveco, Hino and UD Truck.',
-  'Busco/Busafrica responded to the urgent need for a uniquely designed and developed bus bodywork to meet the high standards of the ever changing needs of bus operators and their passengers. After carefully researching the bus industry’s demands, we accumulated all the necessary information from all the parties concerned and were able to start the design and development of the stylish Predator bodywork.',
-  'Busafrica worked very closely with all the chassis OEMs and their technical teams, which resulted in a perfect harmony between chassis and bus bodywork.',
-  'Over the past decade the Predator has proved itself to be an outstanding low-cost-of-ownership vehicle with huge success in a variety of different applications.',
-  'The Predator is backed up by a team of dedicated personnel with a passion and pride for providing excellent on-time service. The Predator also comes with the peace of mind that a full off-the-shelf back-up parts facility is available at reasonable prices.',
+  'Established in 1996, Busco Marketing was founded by a team of highly respected bus industry experts with the aim of advancing and supporting the evolving needs of the passenger transport sector. Over the years, Busco Marketing has grown into a trusted and reputable name within the passenger bus supply chain.',
+
+  'Busco / Busafrica is supported by a team of seasoned professionals who work closely with leading bus chassis manufacturers (OEMs), including Scania, Mercedes-Benz, Volkswagen-MAN, Volvo, and Hino Trucks.',
+
+  'Recognising the demand for innovative and high-performance bus body solutions, Busco / Busafrica responded by developing a uniquely engineered bodywork design tailored to meet the rigorous and ever-changing requirements of both operators and passengers. Through extensive industry research and collaboration with key stakeholders, this vision led to the creation of the stylish and highly functional Predator bodywork.',
+
+  'Busafrica collaborated closely with OEM partners and their technical teams to ensure seamless integration between chassis and body, achieving optimal performance, safety, and reliability.',
+
+  'Over the past decade, the Predator has established itself as a dependable, cost-effective solution, delivering a low total cost of ownership and proven success across a wide range of applications.',
+
+  'The Predator is supported by a dedicated team committed to delivering reliable, on-time service. Customers also benefit from a comprehensive, readily available parts supply, ensuring peace of mind and long-term operational efficiency at competitive pricing.',
 ];
 
 const navItems = [
@@ -88,13 +95,14 @@ export default function About() {
                     '1px 1px 0 #d72626, 2px 2px 0 rgba(215,38,38,0.85), 3px 3px 0 rgba(0,0,0,0.18), 0 10px 0 rgba(0,0,0,0.14), 0 18px 28px rgba(0,0,0,0.32)',
                 }}
               >
-                Built for Africa
+                Built with Pride and Passion
               </div>
-              <p className="mt-8 max-w-[760px] text-[1.04rem] leading-8 text-black/68">
-                Busco Marketing has become a respected name in the passenger bus supply chain by
-                combining industry expertise, close OEM partnerships, and practical bodywork
-                innovation that serves operators and passengers alike.
-              </p>
+<p className="mt-8 max-w-[760px] text-[1.04rem] leading-8 text-black/68">
+  Established in 1996, Busco Marketing was founded by respected bus industry experts
+  with the aim of supporting the evolving needs of the passenger transport sector
+  through trusted experience, strong OEM relationships, and dependable bus bodywork
+  solutions.
+</p>
             </motion.div>
 
             <motion.div
@@ -213,21 +221,6 @@ export default function About() {
                   and a strong service mindset to every client engagement.
                 </p>
               </div>
-
-              <div className="grid max-w-[520px] gap-4 sm:grid-cols-2">
-                {[heroBus, teamBus].map((image, index) => (
-                  <div
-                    key={index}
-                    className="overflow-hidden rounded-[24px] border border-black/8 bg-white/70 shadow-[0_14px_40px_rgba(0,0,0,0.05)]"
-                  >
-                    <img
-                      src={image}
-                      alt={`Busco bus ${index + 1}`}
-                      className="h-[180px] w-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">
@@ -240,14 +233,14 @@ export default function About() {
                   transition={{ duration: 0.6, delay: index * 0.08 }}
                   className="group overflow-hidden rounded-[30px] border border-black/8 bg-white/80 shadow-[0_18px_50px_rgba(0,0,0,0.06)]"
                 >
-                  <div className="relative h-[320px] overflow-hidden">
-                    <img
-                      src={manager.image}
-                      alt={manager.name}
-                      className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.03]"
-                    />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.05),transparent_35%,rgba(0,0,0,0.42)_100%)]" />
-                  </div>
+<div className="relative h-[320px] overflow-hidden bg-[#f7f4ef]">
+  <img
+    src={manager.image}
+    alt={manager.name}
+    className="h-full w-full object-contain object-center p-3"
+  />
+  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),transparent_35%,rgba(0,0,0,0.18)_100%)]" />
+</div>
 
                   <div className="p-6 sm:p-7">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#d72626]">
@@ -273,7 +266,7 @@ export default function About() {
           </div>
 
           <div className="pointer-events-none absolute bottom-0 right-0 z-10">
-            <img src={redAccent} alt="" className="w-[180px] sm:w-[240px] lg:w-[450px] opacity-95" />
+            <img src={redAccent2} alt="" className="w-[180px] sm:w-[240px] lg:w-[200px] opacity-95" />
           </div>
         </section>
       </main>
